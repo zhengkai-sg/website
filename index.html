@@ -141,9 +141,9 @@
 
     /* ── GRANTS STRIP ── */
     .grants { background: var(--dark); padding: 2.5rem 2.5rem; }
-    .grants-inner { display: grid; grid-template-columns: auto 1fr; gap: 2.5rem; align-items: center; }
+    .grants-inner { display: grid; grid-template-columns: auto 1fr; gap: 2.5rem; align-items: center; min-width: 0; overflow: hidden; }
     .grants-label { font-size: .63rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.32); white-space: nowrap; }
-    .grants-scroll { display: flex; gap: 1.1rem; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+    .grants-scroll { display: flex; gap: 1.1rem; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; -webkit-overflow-scrolling: touch; min-width: 0; }
     .grants-scroll::-webkit-scrollbar { display: none; }
     .grant-pill { flex-shrink: 0; background: rgba(255,255,255,.05); border: .5px solid rgba(255,255,255,.1); border-radius: 2px; padding: .48rem .88rem; font-size: .73rem; color: rgba(255,255,255,.52); }
     .grant-pill strong { color: rgba(255,255,255,.82); font-weight: 500; }
