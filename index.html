@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dr. Zheng Kai — Lecturer in Architecture and Sustainable Design at SUTD. Research in low-energy cooling, CFD simulation, and AI-driven building performance for tropical climates.">
+  <meta name="author" content="Dr. Zheng Kai">
+  <meta property="og:title" content="Dr. Zheng Kai — Building Science Researcher, SUTD">
+  <meta property="og:description" content="Low-energy cooling, CFD simulation, and AI surrogate models for tropical built environments.">
+  <meta property="og:url" content="https://zhengkai-sg.github.io">
+  <title>Dr. Zheng Kai — Building Science, SUTD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --slate:   #1e293b;
+      --slate-m: #334155;
+      --slate-l: #64748b;
+      --slate-xl:#94a3b8;
+      --em:      #059669;
+      --em-l:    #6ee7b7;
+      --em-xl:   #d1fae5;
+      --em-d:    #065f46;
+      --cream:   #f8f7f4;
+      --white:   #ffffff;
+      --border:  #e2e8f0;
+      --dark:    #0f172a;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      background: var(--cream);
+      color: var(--slate);
+      line-height: 1.6;
+    }
+
+    /* ── UTILITIES ── */
+    .sec-hdr { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 2.25rem; }
+    .sec-lbl { font-size: .65rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--em); white-space: nowrap; }
+    .sec-rule { flex: 1; height: .5px; background: var(--border); }
+    .sec-num  { font-size: .65rem; color: var(--slate-xl); letter-spacing: .08em; }
+    .sec-title { font-family: 'DM Serif Display', serif; font-size: 1.85rem; color: var(--slate); letter-spacing: -.02em; line-height: 1.2; }
+
+    /* ── NAV ── */
+    nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.1rem 2.5rem;
+      background: var(--white);
+      border-bottom: .5px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.05rem; color: var(--slate); text-decoration: none; }
+    .nav-logo span { color: var(--em); }
+    .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+    .nav-links a { font-size: .76rem; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; color: var(--slate-l); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: var(--em); }
+    .nav-cta { font-size: .74rem; font-weight: 500; padding: .42rem 1rem; border: 1px solid var(--em); color: var(--em); border-radius: 2px; text-decoration: none; letter-spacing: .04em; transition: background .2s, color .2s; }
+    .nav-cta:hover { background: var(--em); color: var(--white); }
+
+    /* ── HERO ── */
+    .hero { display: grid; grid-template-columns: 1fr 1.05fr; min-height: 88vh; overflow: hidden; }
+    .hero-text { padding: 5rem 3rem 4rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--white); border-right: .5px solid var(--border); }
+    .eyebrow { font-size: .68rem; font-weight: 500; letter-spacing: .13em; text-transform: uppercase; color: var(--em); margin-bottom: 1.1rem; display: flex; align-items: center; gap: .6rem; }
+    .eyebrow::before { content: ''; display: block; width: 22px; height: 1px; background: var(--em); }
+    .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.2rem, 3.8vw, 3.2rem); line-height: 1.08; color: var(--slate); letter-spacing: -.02em; margin-bottom: 1.25rem; }
+    .hero h1 em { font-style: italic; color: var(--em); }
+    .hero-desc { font-size: .9rem; color: var(--slate-l); line-height: 1.78; max-width: 400px; margin-bottom: 1.4rem; }
+    .hero-meta { display: flex; gap: 1.25rem; margin-bottom: 1.9rem; font-size: .75rem; color: var(--slate-xl); flex-wrap: wrap; }
+    .hero-actions { display: flex; gap: .75rem; align-items: center; flex-wrap: wrap; }
+    .btn-p { font-size: .76rem; font-weight: 500; letter-spacing: .05em; text-transform: uppercase; padding: .65rem 1.35rem; background: var(--slate); color: var(--white); border: none; border-radius: 2px; text-decoration: none; transition: background .2s; }
+    .btn-p:hover { background: var(--em-d); }
+    .btn-g { font-size: .76rem; font-weight: 500; letter-spacing: .05em; text-transform: uppercase; padding: .65rem 1.35rem; background: transparent; color: var(--slate-l); border: .5px solid #cbd5e1; border-radius: 2px; text-decoration: none; transition: border-color .2s, color .2s; }
+    .btn-g:hover { border-color: var(--em); color: var(--em); }
+    .hero-video { position: relative; background: var(--slate); overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .flow-canvas { position: absolute; inset: 0; overflow: hidden; }
+    .flow-line { position: absolute; height: 1px; background: linear-gradient(90deg, transparent, #6ee7b7, transparent); animation: flowAnim linear infinite; }
+    @keyframes flowAnim { from { transform: translateX(-100%); opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } to { transform: translateX(200%); opacity: 0; } }
+    .video-inner { display: flex; flex-direction: column; align-items: center; gap: 1rem; z-index: 2; }
+    .play-btn { width: 60px; height: 60px; border: 1.5px solid rgba(255,255,255,.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: border-color .2s, background .2s; }
+    .play-btn:hover { border-color: var(--em-l); background: rgba(6,214,160,.1); }
+    .play-arrow { width: 0; height: 0; border-top: 9px solid transparent; border-bottom: 9px solid transparent; border-left: 16px solid rgba(255,255,255,.8); margin-left: 3px; }
+    .video-caption { font-size: .7rem; color: rgba(255,255,255,.38); letter-spacing: .04em; text-align: center; max-width: 220px; }
+    .video-badge { position: absolute; bottom: 1.5rem; left: 1.5rem; background: rgba(255,255,255,.07); border: .5px solid rgba(255,255,255,.14); padding: .5rem .85rem; border-radius: 2px; display: flex; align-items: center; gap: .5rem; }
+    .pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--em-l); animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.8)} }
+    .badge-txt { font-size: .66rem; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; color: rgba(255,255,255,.6); }
+    .video-stat { position: absolute; top: 1.5rem; right: 1.5rem; text-align: right; }
+    .stat-n { font-family: 'DM Serif Display', serif; font-size: 2.2rem; color: rgba(255,255,255,.12); line-height: 1; }
+    .stat-l { font-size: .62rem; letter-spacing: .09em; text-transform: uppercase; color: rgba(255,255,255,.2); }
+
+    /* ── SECTIONS ── */
+    section { padding: 4.5rem 2.5rem; }
+
+    /* ── BE AI COE FEATURE ── */
+    .initiative { background: var(--slate); padding: 4rem 2.5rem; position: relative; overflow: hidden; }
+    .init-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; position: relative; z-index: 2; }
+    .init-eyebrow { font-size: .68rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--em-l); margin-bottom: 1rem; display: flex; align-items: center; gap: .6rem; }
+    .init-eyebrow::before { content: ''; display: block; width: 20px; height: 1px; background: var(--em-l); }
+    .init-sec-hdr .sec-lbl { color: var(--em-l); }
+    .init-sec-hdr .sec-rule { background: rgba(255,255,255,.1); }
+    .init-sec-hdr .sec-num { color: rgba(255,255,255,.3); }
+    .init-title { font-family: 'DM Serif Display', serif; font-size: clamp(1.7rem, 2.8vw, 2.3rem); color: var(--white); line-height: 1.12; letter-spacing: -.02em; margin-bottom: 1rem; }
+    .init-title em { font-style: italic; color: var(--em-l); }
+    .init-desc { font-size: .88rem; color: rgba(255,255,255,.58); line-height: 1.78; margin-bottom: 1.75rem; }
+    .init-meta { display: flex; gap: .75rem; flex-wrap: wrap; margin-bottom: 1.75rem; }
+    .init-chip { font-size: .66rem; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; padding: .26rem .7rem; border: .5px solid rgba(255,255,255,.18); border-radius: 2px; color: rgba(255,255,255,.65); }
+    .init-chip.hl { border-color: var(--em-l); color: var(--em-l); }
+    .init-btn { display: inline-flex; align-items: center; gap: .4rem; font-size: .76rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; padding: .62rem 1.3rem; background: var(--em); color: var(--white); border-radius: 2px; text-decoration: none; transition: background .2s; }
+    .init-btn:hover { background: var(--em-d); }
+    .init-right { display: flex; flex-direction: column; gap: 1rem; }
+    .genome-card { background: rgba(255,255,255,.05); border: .5px solid rgba(255,255,255,.12); border-radius: 3px; padding: 1.5rem 1.6rem; position: relative; overflow: hidden; }
+    .genome-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--em), var(--em-l)); }
+    .genome-role { font-size: .63rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--em-l); margin-bottom: .5rem; }
+    .genome-title { font-family: 'DM Serif Display', serif; font-size: 1.15rem; color: var(--white); line-height: 1.25; margin-bottom: .6rem; }
+    .genome-desc { font-size: .8rem; color: rgba(255,255,255,.52); line-height: 1.7; }
+    .genome-tags { display: flex; gap: .38rem; flex-wrap: wrap; margin-top: .8rem; }
+    .genome-tag { font-size: .6rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; padding: .12rem .44rem; border: .5px solid rgba(255,255,255,.14); color: rgba(255,255,255,.45); border-radius: 1px; }
+    .coe-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: rgba(255,255,255,.08); border: .5px solid rgba(255,255,255,.08); border-radius: 3px; overflow: hidden; }
+    .coe-stat { padding: 1.1rem 1.25rem; background: rgba(255,255,255,.04); }
+    .coe-stat-n { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--white); line-height: 1; margin-bottom: .2rem; }
+    .coe-stat-l { font-size: .6rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.35); }
+
+    /* ── PILLARS ── */
+    .pillars { background: var(--white); }
+    .pillars-intro { max-width: 500px; margin-bottom: 2.75rem; }
+    .pillars-desc { font-size: .86rem; color: var(--slate-l); line-height: 1.78; margin-top: .6rem; }
+    .pillars-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5px; background: var(--border); border: .5px solid var(--border); }
+    .p-card { background: var(--white); padding: 1.85rem 1.6rem; position: relative; overflow: hidden; transition: background .25s; }
+    .p-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--em); transform: scaleX(0); transform-origin: left; transition: transform .3s ease; }
+    .p-card:hover::after { transform: scaleX(1); }
+    .p-card:hover { background: #f7fffd; }
+    .p-num { font-family: 'DM Serif Display', serif; font-size: 2.4rem; color: var(--em-xl); line-height: 1; margin-bottom: 1rem; font-style: italic; }
+    .p-tag { display: inline-block; font-size: .63rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--em); background: var(--em-xl); padding: .16rem .52rem; border-radius: 1px; margin-bottom: .8rem; }
+    .p-title { font-family: 'DM Serif Display', serif; font-size: 1.15rem; color: var(--slate); line-height: 1.28; margin-bottom: .7rem; }
+    .p-desc { font-size: .81rem; color: var(--slate-l); line-height: 1.72; }
+    .p-arrow { display: inline-flex; align-items: center; gap: .35rem; margin-top: 1.1rem; font-size: .7rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--em); text-decoration: none; opacity: 0; transition: opacity .2s; }
+    .p-card:hover .p-arrow { opacity: 1; }
+
+    /* ── GRANTS STRIP ── */
+    .grants { background: var(--dark); padding: 2.5rem 2.5rem; }
+    .grants-inner { display: grid; grid-template-columns: auto 1fr; gap: 2.5rem; align-items: center; min-width: 0; }
+    .grants-scroll-wrap { min-width: 0; overflow: visible; }
+    .grants-label { font-size: .63rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.32); white-space: nowrap; }
+    .grants-scroll { display: flex; gap: 1.1rem; overflow-x: auto; overflow-y: visible; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.2) transparent; padding-bottom: 8px; cursor: grab; -webkit-overflow-scrolling: touch; }
+    .grants-scroll::-webkit-scrollbar { height: 3px; } .grants-scroll::-webkit-scrollbar-track { background: transparent; } .grants-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,.2); border-radius: 2px; }
+    .grant-pill { flex-shrink: 0; background: rgba(255,255,255,.05); border: .5px solid rgba(255,255,255,.1); border-radius: 2px; padding: .48rem .88rem; font-size: .73rem; color: rgba(255,255,255,.52); }
+    .grant-pill strong { color: rgba(255,255,255,.82); font-weight: 500; }
+    .grant-pill.featured { border-color: var(--em); background: rgba(5,150,105,.12); }
+    .grant-pill.featured strong { color: var(--em-l); }
+
+    /* ── PUBLICATIONS ── */
+    .publications { background: var(--cream); }
+    .pubs-layout { display: grid; grid-template-columns: 1fr 2fr; gap: 3.5rem; align-items: start; }
+    .pubs-side { position: sticky; top: 4.5rem; }
+    .pubs-side p { font-size: .83rem; color: var(--slate-l); line-height: 1.72; margin: .6rem 0 1.1rem; }
+    .filter-pills { display: flex; flex-direction: column; gap: .32rem; }
+    .fpill { font-size: .73rem; font-weight: 500; letter-spacing: .04em; padding: .4rem .78rem; border: .5px solid #cbd5e1; border-radius: 1px; background: var(--white); color: var(--slate-l); cursor: pointer; text-align: left; transition: border-color .2s, color .2s, background .2s; }
+    .fpill.active { border-color: var(--em); color: var(--em-d); background: var(--em-xl); }
+    .pub-list { display: flex; flex-direction: column; }
+    .pub-item { padding: 1.5rem 0; border-bottom: .5px solid var(--border); display: grid; grid-template-columns: 46px 1fr; gap: 1.1rem; align-items: start; }
+    .pub-item:first-child { border-top: .5px solid var(--border); }
+    .pub-yr { font-size: .73rem; font-weight: 500; color: var(--em); letter-spacing: .06em; padding-top: .15rem; }
+    .pub-title { font-family: 'DM Serif Display', serif; font-size: .95rem; color: var(--slate); line-height: 1.35; margin-bottom: .3rem; }
+    .pub-meta { font-size: .73rem; color: var(--slate-xl); margin-bottom: .5rem; font-style: italic; }
+    .pub-tags { display: flex; gap: .32rem; flex-wrap: wrap; margin-bottom: .5rem; }
+    .pt { font-size: .61rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; padding: .12rem .48rem; border: .5px solid #cbd5e1; color: var(--slate-l); border-radius: 1px; }
+    .pt.ev   { border-color: var(--em);  color: var(--em-d); background: var(--em-xl); }
+    .pt.vent { border-color: #bae6fd; color: #0c4a6e; background: #f0f9ff; }
+    .pt.cfd  { border-color: #ddd6fe; color: #4c1d95; background: #faf5ff; }
+    .pub-links { display: flex; gap: .85rem; }
+    .pl { font-size: .68rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--slate-l); text-decoration: none; transition: color .2s; }
+    .pl:hover { color: var(--em); }
+
+    /* ── PHD STUDENTS ── */
+    .phd-section { background: var(--white); }
+    .phd-intro { max-width: 520px; margin-bottom: 2.5rem; }
+    .phd-intro-desc { font-size: .86rem; color: var(--slate-l); line-height: 1.78; margin-top: .6rem; }
+    .phd-stats { display: flex; gap: 2rem; margin-top: 1.25rem; margin-bottom: 2.5rem; }
+    .phd-stat-n { font-family: 'DM Serif Display', serif; font-size: 1.9rem; color: var(--slate); line-height: 1; }
+    .phd-stat-l { font-size: .66rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--slate-xl); margin-top: .2rem; }
+    .phd-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.1rem; }
+    .phd-card { border: .5px solid var(--border); border-radius: 3px; padding: 1.5rem 1.4rem; transition: border-color .25s, background .2s; }
+    .phd-card:hover { border-color: #a7f3d0; background: #f7fffd; }
+    .phd-card.graduated { border-left: 3px solid var(--em); }
+    .phd-card.ongoing   { border-left: 3px solid #93c5fd; }
+    .phd-avatar { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', serif; font-size: 1rem; font-style: italic; margin-bottom: 1rem; }
+    .av-green  { background: var(--em-xl); color: var(--em-d); }
+    .av-blue   { background: #dbeafe; color: #1e40af; }
+    .av-teal   { background: #ccfbf1; color: #0f766e; }
+    .av-purple { background: #ede9fe; color: #6d28d9; }
+    .av-amber  { background: #fef3c7; color: #92400e; }
+    .phd-status { display: inline-block; font-size: .6rem; font-weight: 500; letter-spacing: .09em; text-transform: uppercase; padding: .14rem .48rem; border-radius: 1px; margin-bottom: .65rem; }
+    .status-grad    { background: var(--em-xl); color: var(--em-d); border: .5px solid #a7f3d0; }
+    .status-ongoing { background: #dbeafe; color: #1e40af; border: .5px solid #93c5fd; }
+    .phd-name   { font-family: 'DM Serif Display', serif; font-size: 1.05rem; color: var(--slate); line-height: 1.2; margin-bottom: .5rem; }
+    .phd-thesis { font-size: .8rem; color: var(--slate-m); line-height: 1.55; margin-bottom: .7rem; font-style: italic; }
+    .phd-tag { display: inline-block; font-size: .6rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; padding: .13rem .45rem; border: .5px solid #cbd5e1; color: var(--slate-l); border-radius: 1px; margin-right: .3rem; margin-bottom: .3rem; }
+
+    /* ── MEDIA ── */
+    .media { background: var(--cream); }
+    .media-intro { max-width: 480px; margin-bottom: 2.5rem; }
+    .media-intro-desc { font-size: .86rem; color: var(--slate-l); line-height: 1.78; margin-top: .6rem; }
+    .media-sub-lbl { font-size: .63rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--slate-xl); margin-bottom: 1rem; }
+    .cna-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.1rem; margin-bottom: 3rem; }
+    .cna-card { border: .5px solid var(--border); border-radius: 3px; overflow: hidden; transition: border-color .25s; text-decoration: none; display: block; }
+    .cna-card:hover { border-color: #a7f3d0; }
+    .cna-thumb { background: var(--slate); aspect-ratio: 16/9; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .cna-thumb-bg { position: absolute; inset: 0; opacity: .3; }
+    .yt-play { width: 42px; height: 42px; background: rgba(220,38,38,.88); border-radius: 5px; display: flex; align-items: center; justify-content: center; z-index: 2; }
+    .yt-tri { width: 0; height: 0; border-top: 7px solid transparent; border-bottom: 7px solid transparent; border-left: 13px solid white; margin-left: 3px; }
+    .cna-badge-chip { position: absolute; bottom: .55rem; left: .55rem; background: rgba(220,38,38,.92); color: white; font-size: .58rem; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; padding: .15rem .45rem; border-radius: 2px; z-index: 2; }
+    .cna-body { padding: .9rem 1rem 1rem; background: var(--white); }
+    .cna-year { font-size: .62rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--em); margin-bottom: .3rem; }
+    .cna-title { font-family: 'DM Serif Display', serif; font-size: .9rem; color: var(--slate); line-height: 1.3; margin-bottom: .35rem; }
+    .cna-desc { font-size: .74rem; color: var(--slate-l); line-height: 1.6; }
+    .cna-link { display: inline-flex; align-items: center; gap: .3rem; margin-top: .6rem; font-size: .65rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--em); }
+    .news-divider { height: .5px; background: var(--border); margin-bottom: 2rem; }
+    .news-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1.1rem; }
+    .news-card { border: .5px solid var(--border); border-radius: 3px; padding: 1.1rem 1.15rem; background: var(--white); transition: border-color .25s, background .2s; text-decoration: none; display: block; }
+    .news-card:hover { border-color: #a7f3d0; }
+    .news-outlet-row { display: flex; align-items: center; gap: .5rem; margin-bottom: .6rem; }
+    .outlet-chip { font-size: .6rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; padding: .15rem .48rem; border-radius: 1px; }
+    .chip-st  { background: #fef9c3; color: #854d0e; border: .5px solid #fde68a; }
+    .chip-zb  { background: #fee2e2; color: #991b1b; border: .5px solid #fca5a5; }
+    .chip-moe { background: #dbeafe; color: #1e40af; border: .5px solid #93c5fd; }
+    .chip-cna { background: #fee2e2; color: #991b1b; border: .5px solid #fca5a5; }
+    .news-year  { font-size: .62rem; color: var(--slate-xl); letter-spacing: .06em; }
+    .news-title { font-family: 'DM Serif Display', serif; font-size: .88rem; color: var(--slate); line-height: 1.32; margin-bottom: .4rem; }
+    .news-desc  { font-size: .74rem; color: var(--slate-l); line-height: 1.6; }
+    .news-link  { display: inline-flex; align-items: center; gap: .3rem; margin-top: .55rem; font-size: .63rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--em); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--dark); color: rgba(255,255,255,.38); padding: 2.5rem 2.5rem; display: flex; justify-content: space-between; align-items: center; font-size: .73rem; letter-spacing: .04em; flex-wrap: wrap; gap: 1.5rem; }
+    .ft-left {}
+    .ft-name { font-family: 'DM Serif Display', serif; font-size: .95rem; color: rgba(255,255,255,.85); }
+    .ft-aff  { margin-top: .2rem; }
+    .ft-copy { margin-top: .35rem; font-size: .66rem; color: rgba(255,255,255,.25); }
+    .ft-links { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    .ft-links a { color: rgba(255,255,255,.35); text-decoration: none; transition: color .2s; }
+    .ft-links a:hover { color: var(--em-l); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-video { min-height: 300px; }
+      .init-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .pubs-layout { grid-template-columns: 1fr; }
+      .pubs-side { position: static; }
+      .phd-grid { grid-template-columns: 1fr 1fr; }
+      .cna-grid { grid-template-columns: 1fr; }
+      .news-grid { grid-template-columns: 1fr 1fr; }
+      .grants-inner { grid-template-columns: 1fr; gap: 1rem; }
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { display: none; }
+      section { padding: 3rem 1.25rem; }
+      .initiative { padding: 3rem 1.25rem; }
+      .grants { padding: 2rem 1.25rem; }
+      footer { padding: 2rem 1.25rem; flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 600px) {
+      .phd-grid { grid-template-columns: 1fr; }
+      .news-grid { grid-template-columns: 1fr; }
+      .coe-stats { grid-template-columns: repeat(3,1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Dr. Zheng Kai<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#research">Research</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#people">People</a></li>
+      <li><a href="#media">Media</a></li>
+      <li><a href="https://www.sutd.edu.sg/profile/zheng-kai/" target="_blank">SUTD Profile</a></li>
+    </ul>
+    <a href="mailto:kai_zheng@sutd.edu.sg" class="nav-cta">Contact</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero" id="home">
+    <div class="hero-text">
+      <div class="eyebrow">Building Science · SUTD · Singapore</div>
+      <h1>Keeping people<br><em>cool</em> without<br>the energy cost</h1>
+      <p class="hero-desc">Lecturer at the Architecture and Sustainable Design pillar, SUTD. My research bridges high-fidelity simulation, AI surrogates, and policy translation to deliver low-energy thermal comfort in tropical climates.</p>
+      <div class="hero-meta">
+        <span>&#127981; SUTD, Singapore</span>
+        <span>&#128218; h-index 3 &middot; 76 citations</span>
+        <span>&#9989; BCA Green Mark AP &middot; WELL AP</span>
+      </div>
+      <div class="hero-actions">
+        <a href="https://scholar.google.com/citations?user=nKz7dMUAAAAJ&hl=en" class="btn-p" target="_blank">Google Scholar &rarr;</a>
+        <a href="https://www.sutd.edu.sg/profile/zheng-kai/" class="btn-g" target="_blank">SUTD Profile</a>
+        <a href="https://www.linkedin.com/in/zhengkai-sutd/" class="btn-g" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+    <div class="hero-video">
+      <div class="flow-canvas" id="flowCanvas"></div>
+      <div class="video-stat">
+        <div class="stat-n">$4M+</div>
+        <div class="stat-l">research funding</div>
+      </div>
+      <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.85;z-index:1;">
+        <source src="hero.mp4" type="video/mp4">
+      </video>
+      <div class="video-badge">
+        <div class="pulse"></div>
+        <span class="badge-txt">Simulation Preview</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BE AI CENTRE OF EXCELLENCE -->
+  <div class="initiative" id="initiative">
+    <div class="init-inner">
+      <div>
+        <div class="sec-hdr init-sec-hdr">
+          <span class="sec-lbl" style="color:var(--em-l)">Latest Initiative</span>
+          <div class="sec-rule" style="background:rgba(255,255,255,.1)"></div>
+          <span class="sec-num" style="color:rgba(255,255,255,.3)">2026</span>
+        </div>
+        <div class="init-eyebrow">MND &times; SUTD &middot; SGD 30 Million</div>
+        <div class="init-title">Built Environment<br><em>AI Centre of Excellence</em></div>
+        <p class="init-desc">The Ministry of National Development and SUTD have launched Singapore's SGD 30M Built Environment AI Centre of Excellence &mdash; developing AI-driven solutions to tackle climate change impacts, manpower shortages, and sustainability challenges across the construction and facilities management sectors.</p>
+        <div class="init-meta">
+          <span class="init-chip hl">SGD 30 Million</span>
+          <span class="init-chip">MND Funded &middot; RIE2030</span>
+          <span class="init-chip">SUTD Host Institution</span>
+          <span class="init-chip">Launched Feb 2026</span>
+        </div>
+        <a href="https://www.businesstimes.com.sg/property/mnd-sutd-launch-s30-million-built-environment-ai-centre-excellence" class="init-btn" target="_blank">Read Announcement &rarr;</a>
+      </div>
+      <div class="init-right">
+        <div class="genome-card">
+          <div class="genome-role">Co-PI &middot; Work Package</div>
+          <div class="genome-title">Singapore Building Genome Project</div>
+          <p class="genome-desc">A large-scale data initiative to construct a comprehensive, AI-ready dataset of Singapore's built environment &mdash; integrating building geometry, energy performance, material properties, and microclimate data to enable city-scale simulation, benchmarking, and policy-driven design optimisation.</p>
+          <div class="genome-tags">
+            <span class="genome-tag">Building Data</span>
+            <span class="genome-tag">AI Surrogates</span>
+            <span class="genome-tag">Urban Scale</span>
+            <span class="genome-tag">Energy Benchmarking</span>
+            <span class="genome-tag">Working Title</span>
+          </div>
+        </div>
+        <div class="coe-stats">
+          <div class="coe-stat"><div class="coe-stat-n">$30M</div><div class="coe-stat-l">Centre Funding</div></div>
+          <div class="coe-stat"><div class="coe-stat-n">4</div><div class="coe-stat-l">Research Areas</div></div>
+          <div class="coe-stat"><div class="coe-stat-n">2026</div><div class="coe-stat-l">Launched</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRANTS STRIP -->
+  <div class="grants">
+    <div class="grants-inner">
+      <div class="grants-label">Active Grants</div>
+      <div class="grants-scroll-wrap">
+        <div class="grants-scroll" id="grantsScroll">
+          <div class="grant-pill featured"><strong>MND &times; SUTD</strong> BE AI Centre of Excellence &mdash; SGD 30M</div>
+          <div class="grant-pill"><strong>MOE SSRC</strong> Urban Heat &amp; Climate Resilient Citizenry &mdash; SGD 2.42M</div>
+          <div class="grant-pill"><strong>Tote Board</strong> Heat Resilience of Vulnerable Communities &mdash; SGD 1M</div>
+          <div class="grant-pill"><strong>Experion</strong> Advanced Facades for Healthy Residential Dev &mdash; SGD 262K</div>
+          <div class="grant-pill"><strong>SUTD</strong> Sunventus Hybrid Solar-Wind System &mdash; SGD 201.5K</div>
+          <div class="grant-pill"><strong>SUTD</strong> Evaporative Cooling for Thermal Comfort &mdash; SGD 88.9K</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESEARCH PILLARS -->
+  <section class="pillars" id="research">
+    <div class="pillars-intro">
+      <div class="sec-hdr"><span class="sec-lbl">Focus Areas</span><div class="sec-rule"></div><span class="sec-num">01</span></div>
+      <div class="sec-title">Research Pillars</div>
+      <p class="pillars-desc">Three interconnected themes anchoring a research programme on human-centred, low-energy cooling for tropical built environments &mdash; from fluid simulation to AI acceleration to real-world policy impact.</p>
+    </div>
+    <div class="pillars-grid">
+      <div class="p-card">
+        <div class="p-num">01</div>
+        <div class="p-tag">Passive Cooling</div>
+        <div class="p-title">Evaporative &amp; Desiccant Cooling for Tropical Climates</div>
+        <p class="p-desc">Developing and validating dry-mist, indirect evaporative, and desiccant-based systems for low-energy thermal comfort in Singapore's humid tropics &mdash; from secondary schools to HDB housing to worker dormitories.</p>
+        <a href="#publications" class="p-arrow">Explore work &rarr;</a>
+      </div>
+      <div class="p-card">
+        <div class="p-num">02</div>
+        <div class="p-tag">CFD &amp; Simulation</div>
+        <div class="p-title">Computational Airflow Modelling &amp; Natural Ventilation</div>
+        <p class="p-desc">High-fidelity CFD simulation of wind flow, airborne transmission, and ventilation performance &mdash; applied to pandemic-resilient design, campus wind redirection, and bridging the gap between ventilation standards and practice.</p>
+        <a href="#publications" class="p-arrow">Explore work &rarr;</a>
+      </div>
+      <div class="p-card">
+        <div class="p-num">03</div>
+        <div class="p-tag">AI &amp; Surrogates</div>
+        <div class="p-title">Machine Learning Surrogates for Early-Stage Design</div>
+        <p class="p-desc">Training physics-informed neural networks, GRU Seq2Seq, and Gaussian Process Regression surrogates on CFD data for real-time parametric design support &mdash; from energy prediction to automated floorplan generation.</p>
+        <a href="#publications" class="p-arrow">Explore work &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section class="publications" id="publications">
+    <div class="pubs-layout">
+      <div class="pubs-side">
+        <div class="sec-hdr"><span class="sec-lbl">Scholarship</span><div class="sec-rule"></div><span class="sec-num">02</span></div>
+        <div class="sec-title">Recent Publications</div>
+        <p>Peer-reviewed work in passive cooling, airflow simulation, and AI-assisted design. Full list on Google Scholar.</p>
+        <div class="filter-pills">
+          <button class="fpill active" onclick="filterPubs(this,'all')">All</button>
+          <button class="fpill" onclick="filterPubs(this,'ev')">Evaporative Cooling</button>
+          <button class="fpill" onclick="filterPubs(this,'vent')">Ventilation</button>
+          <button class="fpill" onclick="filterPubs(this,'cfd')">CFD &amp; Simulation</button>
+        </div>
+      </div>
+      <div class="pub-list" id="pubList">
+        <div class="pub-item" data-tags="vent cfd">
+          <div class="pub-yr">2025</div>
+          <div>
+            <div class="pub-title">Discrepancies Between Design and Practice in Natural Ventilation</div>
+            <div class="pub-meta">SBE Conference, ETH Zurich, Switzerland</div>
+            <div class="pub-tags"><span class="pt vent">Ventilation</span><span class="pt cfd">CFD</span></div>
+            <div class="pub-links"><a href="#" class="pl">[Proceedings]</a></div>
+          </div>
+        </div>
+        <div class="pub-item" data-tags="ev">
+          <div class="pub-yr">2024</div>
+          <div>
+            <div class="pub-title">Desiccant-Based Air Cooling in Classrooms</div>
+            <div class="pub-meta">ARCH24, 6th Int'l Conference on Architecture, Research, Care and Health &middot; Aalto University, Finland</div>
+            <div class="pub-tags"><span class="pt ev">Evaporative</span><span class="pt">Desiccant</span></div>
+            <div class="pub-links"><a href="#" class="pl">[Proceedings]</a></div>
+          </div>
+        </div>
+        <div class="pub-item" data-tags="vent cfd">
+          <div class="pub-yr">2021</div>
+          <div>
+            <div class="pub-title">Ventilation Performance in Worker Dormitories: An Airflow Study</div>
+            <div class="pub-meta">Sustainable Cities and Society, 103327 &middot; Zheng, K., Ortner, P., Tay, J., &amp; Lim, Y.</div>
+            <div class="pub-tags"><span class="pt vent">Ventilation</span><span class="pt cfd">CFD</span></div>
+            <div class="pub-links"><a href="https://doi.org/10.1016/j.scs.2021.103327" class="pl" target="_blank">[DOI]</a></div>
+          </div>
+        </div>
+        <div class="pub-item" data-tags="ev">
+          <div class="pub-yr">2019</div>
+          <div>
+            <div class="pub-title">Thermal Comfort with Dry Mist Systems in the Tropics</div>
+            <div class="pub-meta">Sustainable Cities and Society, 51, 101727 &middot; Zheng, K., Yuan, C., Wong, N.H., Cen, C.</div>
+            <div class="pub-tags"><span class="pt ev">Evaporative</span><span class="pt">Thermal Comfort</span></div>
+            <div class="pub-links"><a href="https://doi.org/10.1016/j.scs.2019.101727" class="pl" target="_blank">[DOI]</a></div>
+          </div>
+        </div>
+        <div class="pub-item" data-tags="ev cfd">
+          <div class="pub-yr">2018</div>
+          <div>
+            <div class="pub-title">Cooling Effects of Dry Mist Systems on Outdoor Thermal Environments</div>
+            <div class="pub-meta">Building and Environment, 141, 61&ndash;70 &middot; Zheng, K., Ichinose, M., &amp; Wong, N.</div>
+            <div class="pub-tags"><span class="pt ev">Evaporative</span><span class="pt cfd">CFD</span></div>
+            <div class="pub-links"><a href="https://doi.org/10.1016/j.buildenv.2018.05.046" class="pl" target="_blank">[DOI]</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHD STUDENTS -->
+  <section class="phd-section" id="people">
+    <div class="phd-intro">
+      <div class="sec-hdr"><span class="sec-lbl">Graduate Supervision</span><div class="sec-rule"></div><span class="sec-num">03</span></div>
+      <div class="sec-title">PhD Students</div>
+      <p class="phd-intro-desc">Supervising a diverse cohort of doctoral researchers working at the intersection of building science, renewable energy, AI, and climate resilience &mdash; from tropical Singapore to Sub-Saharan Africa.</p>
+      <div class="phd-stats">
+        <div><div class="phd-stat-n">3</div><div class="phd-stat-l">Graduated</div></div>
+        <div><div class="phd-stat-n">2</div><div class="phd-stat-l">Ongoing</div></div>
+        <div><div class="phd-stat-n">5</div><div class="phd-stat-l">Total supervised</div></div>
+      </div>
+    </div>
+    <div class="phd-grid">
+      <div class="phd-card graduated">
+        <div class="phd-avatar av-green">MS</div>
+        <div class="phd-status status-grad">Graduated</div>
+        <div class="phd-name">Michele Sodano</div>
+        <div class="phd-thesis">Advancing Energy-Efficient Building Design Through Deep Learning Surrogate Models</div>
+        <span class="phd-tag">Machine Learning</span><span class="phd-tag">Energy Simulation</span><span class="phd-tag">GRU Seq2Seq</span>
+      </div>
+      <div class="phd-card graduated">
+        <div class="phd-avatar av-blue">LL</div>
+        <div class="phd-status status-grad">Graduated</div>
+        <div class="phd-name">Lampson Leung</div>
+        <div class="phd-thesis">Design and Performance Assessment of a Building Integrated Hybrid Solar-Wind Energy System</div>
+        <span class="phd-tag">Renewable Energy</span><span class="phd-tag">Solar-Wind</span><span class="phd-tag">Stack Ventilation</span>
+      </div>
+      <div class="phd-card graduated">
+        <div class="phd-avatar av-teal">HW</div>
+        <div class="phd-status status-grad">Graduated</div>
+        <div class="phd-name">Harry Woon</div>
+        <div class="phd-thesis">Assessing Embodied and Operational Carbon in Singapore's Institutional Buildings: The Impact of Air Conditioning on Energy Consumption</div>
+        <span class="phd-tag">Life Cycle Carbon</span><span class="phd-tag">Net Zero</span><span class="phd-tag">LCA</span>
+      </div>
+      <div class="phd-card ongoing">
+        <div class="phd-avatar av-purple">DL</div>
+        <div class="phd-status status-ongoing">Ongoing</div>
+        <div class="phd-name">Daniel Leong</div>
+        <div class="phd-thesis">Intelligent Localised In-Door Micro-Cooling System</div>
+        <span class="phd-tag">Evaporative Cooling</span><span class="phd-tag">AI Control</span><span class="phd-tag">Thermal Comfort</span>
+      </div>
+      <div class="phd-card ongoing">
+        <div class="phd-avatar av-amber">NK</div>
+        <div class="phd-status status-ongoing">Ongoing</div>
+        <div class="phd-name">Nad&egrave;ge Kougnigan</div>
+        <div class="phd-thesis">Climate Change Impacts on Residential Buildings in Sub-Saharan Africa: Development of a Framework to Improve Performance</div>
+        <span class="phd-tag">Climate Resilience</span><span class="phd-tag">Sub-Saharan Africa</span><span class="phd-tag">Building Performance</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEDIA & PRESS -->
+  <section class="media" id="media">
+    <div class="media-intro">
+      <div class="sec-hdr"><span class="sec-lbl">Press &amp; Media</span><div class="sec-rule"></div><span class="sec-num">04</span></div>
+      <div class="sec-title">In the News</div>
+      <p class="media-intro-desc">Research on heat, ventilation, and low-energy cooling has been featured across national broadcast and print media in Singapore.</p>
+    </div>
+
+    <div class="media-sub-lbl">Channel NewsAsia &mdash; Documentaries &amp; Broadcasts</div>
+    <div class="cna-grid">
+      <a href="https://www.youtube.com/watch?v=Mcv1zxfL960&t=1277s" class="cna-card" target="_blank">
+        <div class="cna-thumb" style="background:#0f172a">
+          <div class="cna-thumb-bg" style="background:linear-gradient(135deg,#059669,#0f172a)"></div>
+          <div class="yt-play"><div class="yt-tri"></div></div>
+          <div class="cna-badge-chip">CNA Talking Point</div>
+        </div>
+        <div class="cna-body">
+          <div class="cna-year">2024</div>
+          <div class="cna-title">Can We Beat the Heat Without Air-Conditioning?</div>
+          <div class="cna-desc">Expert feature on passive cooling alternatives for Singapore homes and communities.</div>
+          <div class="cna-link">Watch &rarr;</div>
+        </div>
+      </a>
+      <a href="https://www.youtube.com/watch?v=Po7wPkjDmo0&t=695s" class="cna-card" target="_blank">
+        <div class="cna-thumb" style="background:#0f172a">
+          <div class="cna-thumb-bg" style="background:linear-gradient(135deg,#0369a1,#0f172a)"></div>
+          <div class="yt-play"><div class="yt-tri"></div></div>
+          <div class="cna-badge-chip">CNA Documentary</div>
+        </div>
+        <div class="cna-body">
+          <div class="cna-year">2024</div>
+          <div class="cna-title">How to Beat the Heat Without Using Air-Conditioning</div>
+          <div class="cna-desc">Insights on evaporative cooling and Singapore's urban heat challenge.</div>
+          <div class="cna-link">Watch &rarr;</div>
+        </div>
+      </a>
+      <a href="https://www.youtube.com/watch?v=TzRZljciU8s&t=456s" class="cna-card" target="_blank">
+        <div class="cna-thumb" style="background:#0f172a">
+          <div class="cna-thumb-bg" style="background:linear-gradient(135deg,#7c3aed,#0f172a)"></div>
+          <div class="yt-play"><div class="yt-tri"></div></div>
+          <div class="cna-badge-chip">CNA Talking Point</div>
+        </div>
+        <div class="cna-body">
+          <div class="cna-year">2022</div>
+          <div class="cna-title">Should Smoking at Home Be Banned?</div>
+          <div class="cna-desc">CFD simulation evidence on secondhand smoke transmission in HDB units.</div>
+          <div class="cna-link">Watch &rarr;</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="news-divider"></div>
+    <div class="media-sub-lbl" style="margin-bottom:1rem">Print &amp; Online News</div>
+    <div class="news-grid">
+      <a href="https://www.straitstimes.com/multimedia/graphics/2022/01/who-let-the-tigers-out/index.html" class="news-card" target="_blank">
+        <div class="news-outlet-row"><span class="outlet-chip chip-st">Straits Times</span><span class="news-year">2022</span></div>
+        <div class="news-title">Who Let the Tigers Out &mdash; CNY Light-Up Chinatown 2022</div>
+        <div class="news-desc">Interactive feature on the Year of the Tiger Chinatown light-up, with SUTD student design contributions under Dr. Zheng Kai's faculty advisory role.</div>
+        <div class="news-link">Read article &rarr;</div>
+      </a>
+      <a href="https://www.straitstimes.com/opinion/forum/forum-building-services-play-big-role-in-fight-against-covid-19" class="news-card" target="_blank">
+        <div class="news-outlet-row"><span class="outlet-chip chip-st">Straits Times</span><span class="news-year">2021</span></div>
+        <div class="news-title">Building Services Play a Big Role in the Fight Against COVID-19</div>
+        <div class="news-desc">Forum letter applying airflow and ventilation research to pandemic-resilient building design and reducing airborne transmission risk.</div>
+        <div class="news-link">Read article &rarr;</div>
+      </a>
+      <a href="https://www.mewatch.sg/watch/Sep-2021-CNA-Singapore-Tonight-241613" class="news-card" target="_blank">
+        <div class="news-outlet-row"><span class="outlet-chip chip-cna">CNA &middot; meWatch</span><span class="news-year">2021</span></div>
+        <div class="news-title">COVID-19 Transmission &mdash; CNA Singapore Tonight</div>
+        <div class="news-desc">Live broadcast interview on COVID-19 airborne transmission using CFD simulation of respiratory droplet spread in enclosed environments.</div>
+        <div class="news-link">Watch segment &rarr;</div>
+      </a>
+      <a href="https://www.straitstimes.com/singapore/consumer/iconic-cny-light-up-to-go-ahead-in-chinatown-amid-muted-festivities-this-year" class="news-card" target="_blank">
+        <div class="news-outlet-row"><span class="outlet-chip chip-st">Straits Times</span><span class="news-year">2021</span></div>
+        <div class="news-title">Iconic CNY Light-Up to Go Ahead in Chinatown Amid Muted Festivities</div>
+        <div class="news-desc">Coverage of the Chinatown Chinese New Year light-up, featuring SUTD student design contributions under Dr. Zheng Kai's faculty advisory role.</div>
+        <div class="news-link">Read article &rarr;</div>
+      </a>
+      <a href="https://www.moe.gov.sg/news/speeches/20200924-speech-by-mr-lawrence-wong-minister-for-education-at-the-virtual-singapore-teaching-and-academic-research-talent-scheme-start-award-ceremony" class="news-card" target="_blank">
+        <div class="news-outlet-row"><span class="outlet-chip chip-moe">MOE Singapore</span><span class="news-year">2020</span></div>
+        <div class="news-title">Singapore Teaching &amp; Academic Research Talent (START) Award</div>
+        <div class="news-desc">Special mention by Minister for Education Lawrence Wong at the national START Award ceremony, recognising early-career academic excellence.</div>
+        <div class="news-link">Read speech &rarr;</div>
+      </a>
+      <a href="https://www.zaobao.com.sg/news/singapore/story20200925-1087581" class="news-card" target="_blank">
+        <div class="news-outlet-row"><span class="outlet-chip chip-zb">Zaobao</span><span class="news-year">2020</span></div>
+        <div class="news-title">START Award &mdash; Special Mention by Minister of Education</div>
+        <div class="news-desc">Lianhe Zaobao coverage of the START Award ceremony, highlighting recognition as an outstanding young academic in Singapore's higher education sector.</div>
+        <div class="news-link">Read article &rarr;</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="ft-left">
+      <div class="ft-name">Dr. Zheng Kai</div>
+      <div class="ft-aff">Lecturer, Architecture &amp; Sustainable Design &middot; SUTD &middot; Singapore</div>
+      <div class="ft-copy">&copy; 2026 &middot; zhengkai-sg.github.io</div>
+    </div>
+    <div class="ft-links">
+      <a href="https://scholar.google.com/citations?user=nKz7dMUAAAAJ&hl=en" target="_blank">Google Scholar</a>
+      <a href="https://orcid.org/0000-0002-4263-7638" target="_blank">ORCID</a>
+      <a href="https://www.linkedin.com/in/zhengkai-sutd/" target="_blank">LinkedIn</a>
+      <a href="https://www.sutd.edu.sg/profile/zheng-kai/" target="_blank">SUTD Profile</a>
+      <a href="mailto:kai_zheng@sutd.edu.sg">Email</a>
+    </div>
+  </footer>
+
+  <script>
+    // CFD flow lines
+    (function() {
+      var canvas = document.getElementById('flowCanvas');
+      if (!canvas) return;
+      for (var i = 0; i < 26; i++) {
+        var el = document.createElement('div');
+        el.className = 'flow-line';
+        var top = 2 + (i / 26) * 96;
+        var w = 32 + Math.random() * 58;
+        var dur = 2.8 + Math.random() * 4.5;
+        var delay = -Math.random() * dur;
+        el.style.cssText = 'top:' + top + '%;width:' + w + '%;left:0;opacity:0.15;animation-duration:' + dur + 's;animation-delay:' + delay + 's;';
+        canvas.appendChild(el);
+      }
+    })();
+
+    // Drag-to-scroll for grants
+    (function() {
+      var el = document.getElementById('grantsScroll');
+      if (!el) return;
+      var isDown = false, startX, scrollLeft;
+      el.addEventListener('mousedown', function(e) { isDown = true; el.style.cursor='grabbing'; startX = e.pageX - el.offsetLeft; scrollLeft = el.scrollLeft; });
+      el.addEventListener('mouseleave', function() { isDown = false; el.style.cursor='grab'; });
+      el.addEventListener('mouseup', function() { isDown = false; el.style.cursor='grab'; });
+      el.addEventListener('mousemove', function(e) { if (!isDown) return; e.preventDefault(); var x = e.pageX - el.offsetLeft; el.scrollLeft = scrollLeft - (x - startX); });
+    })();
+
+    // Publication filter
+    function filterPubs(btn, tag) {
+      document.querySelectorAll('.fpill').forEach(function(p) { p.classList.remove('active'); });
+      btn.classList.add('active');
+      document.querySelectorAll('.pub-item').forEach(function(item) {
+        if (tag === 'all') {
+          item.style.display = '';
+        } else {
+          var tags = item.getAttribute('data-tags') || '';
+          item.style.display = tags.indexOf(tag) !== -1 ? '' : 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
