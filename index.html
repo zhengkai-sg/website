@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dr. Zheng Kai — Lecturer in Architecture and Sustainable Design at SUTD. Research in low-energy cooling, CFD simulation, and AI-driven building performance for tropical climates.">
+  <meta name="author" content="Dr. Zheng Kai">
+  <meta property="og:title" content="Dr. Zheng Kai — Building Science Researcher, SUTD">
+  <meta property="og:description" content="Low-energy cooling, CFD simulation, and AI surrogate models for tropical built environments.">
+  <meta property="og:url" content="https://zhengkai-sg.github.io">
+  <title>Dr. Zheng Kai — Building Science, SUTD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --slate:   #1e293b;
+      --slate-m: #334155;
+      --slate-l: #64748b;
+      --slate-xl:#94a3b8;
+      --em:      #059669;
+      --em-l:    #6ee7b7;
+      --em-xl:   #d1fae5;
+      --em-d:    #065f46;
+      --cream:   #f8f7f4;
+      --white:   #ffffff;
+      --border:  #e2e8f0;
+      --dark:    #0f172a;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      background: var(--cream);
+      color: var(--slate);
+      line-height: 1.6;
+    }
+
+    /* ── UTILITIES ── */
+    .sec-hdr { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 2.25rem; }
+    .sec-lbl { font-size: .65rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--em); white-space: nowrap; }
+    .sec-rule { flex: 1; height: .5px; background: var(--border); }
+    .sec-num  { font-size: .65rem; color: var(--slate-xl); letter-spacing: .08em; }
+    .sec-title { font-family: 'DM Serif Display', serif; font-size: 1.85rem; color: var(--slate); letter-spacing: -.02em; line-height: 1.2; }
+
+    /* ── NAV ── */
+    nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.1rem 2.5rem;
+      background: var(--white);
+      border-bottom: .5px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo { display: flex; align-items: center; gap: .55rem; text-decoration: none; }
+    .nav-logo img { width: 32px; height: 32px; object-fit: contain; display: block; }
+    .nav-logo-text { font-family: 'DM Serif Display', serif; font-size: 1.05rem; color: var(--slate); }
+    .nav-logo-text span { color: var(--em); }
+    .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+    .nav-links a { font-size: .76rem; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; color: var(--slate-l); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: var(--em); }
+    .nav-cta { font-size: .74rem; font-weight: 500; padding: .42rem 1rem; border: 1px solid var(--em); color: var(--em); border-radius: 2px; text-decoration: none; letter-spacing: .04em; transition: background .2s, color .2s; }
+    .nav-cta:hover { background: var(--em); color: var(--white); }
+
+    /* ── HERO ── */
+    .hero { display: grid; grid-template-columns: 1fr 1.05fr; min-height: 88vh; overflow: hidden; }
+    .hero-text { padding: 5rem 3rem 4rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--white); border-right: .5px solid var(--border); }
+    .eyebrow { font-size: .68rem; font-weight: 500; letter-spacing: .13em; text-transform: uppercase; color: var(--em); margin-bottom: 1.1rem; display: flex; align-items: center; gap: .6rem; }
+    .eyebrow::before { content: ''; display: block; width: 22px; height: 1px; background: var(--em); }
+    .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.2rem, 3.8vw, 3.2rem); line-height: 1.08; color: var(--slate); letter-spacing: -.02em; margin-bottom: 1.25rem; }
+    .hero h1 em { font-style: italic; color: var(--em); }
+    .hero-desc { font-size: .9rem; color: var(--slate-l); line-height: 1.78; max-width: 400px; margin-bottom: 1.4rem; }
+    .hero-meta { display: flex; gap: 1.25rem; margin-bottom: 1.9rem; font-size: .75rem; color: var(--slate-xl); flex-wrap: wrap; }
+    .hero-actions { display: flex; gap: .75rem; align-items: center; flex-wrap: wrap; }
+    .btn-p { font-size: .76rem; font-weight: 500; letter-spacing: .05em; text-transform: uppercase; padding: .65rem 1.35rem; background: var(--slate); color: var(--white); border: none; border-radius: 2px; text-decoration: none; transition: background .2s; }
+    .btn-p:hover { background: var(--em-d); }
+    .btn-g { font-size: .76rem; font-weight: 500; letter-spacing: .05em; text-transform: uppercase; padding: .65rem 1.35rem; background: transparent; color: var(--slate-l); border: .5px solid #cbd5e1; border-radius: 2px; text-decoration: none; transition: border-color .2s, color .2s; }
+    .btn-g:hover { border-color: var(--em); color: var(--em); }
+    .hero-video { position: relative; background: var(--slate); overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .flow-canvas { position: absolute; inset: 0; overflow: hidden; }
+    .flow-line { position: absolute; height: 1px; background: linear-gradient(90deg, transparent, #6ee7b7, transparent); animation: flowAnim linear infinite; }
+    @keyframes flowAnim { from { transform: translateX(-100%); opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } to { transform: translateX(200%); opacity: 0; } }
+    .video-inner { display: flex; flex-direction: column; align-items: center; gap: 1rem; z-index: 2; }
+    .play-btn { width: 60px; height: 60px; border: 1.5px solid rgba(255,255,255,.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: border-color .2s, background .2s; }
+    .play-btn:hover { border-color: var(--em-l); background: rgba(6,214,160,.1); }
+    .play-arrow { width: 0; height: 0; border-top: 9px solid transparent; border-bottom: 9px solid transparent; border-left: 16px solid rgba(255,255,255,.8); margin-left: 3px; }
+    .video-caption { font-size: .7rem; color: rgba(255,255,255,.38); letter-spacing: .04em; text-align: center; max-width: 220px; }
+    .video-badge { position: absolute; bottom: 1.5rem; left: 1.5rem; background: rgba(255,255,255,.07); border: .5px solid rgba(255,255,255,.14); padding: .5rem .85rem; border-radius: 2px; display: flex; align-items: center; gap: .5rem; }
+    .pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--em-l); animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.8)} }
+    .badge-txt { font-size: .66rem; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; color: rgba(255,255,255,.6); }
+    .video-stat { position: absolute; top: 1.5rem; right: 1.5rem; text-align: right; }
+    .stat-n { font-family: 'DM Serif Display', serif; font-size: 2.2rem; color: rgba(255,255,255,.12); line-height: 1; }
+    .stat-l { font-size: .62rem; letter-spacing: .09em; text-transform: uppercase; color: rgba(255,255,255,.2); }
+
+    /* ── SECTIONS ── */
+    section { padding: 4.5rem 2.5rem; }
+
+    /* ── BE AI COE FEATURE ── */
+    .initiative { background: var(--slate); padding: 4rem 2.5rem; position: relative; overflow: hidden; }
+    .init-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; position: relative; z-index: 2; }
+    .init-eyebrow { font-size: .68rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--em-l); margin-bottom: 1rem; display: flex; align-items: center; gap: .6rem; }
+    .init-eyebrow::before { content: ''; display: block; width: 20px; height: 1px; background: var(--em-l); }
+    .init-sec-hdr .sec-lbl { color: var(--em-l); }
+    .init-sec-hdr .sec-rule { background: rgba(255,255,255,.1); }
+    .init-sec-hdr .sec-num { color: rgba(255,255,255,.3); }
+    .init-title { font-family: 'DM Serif Display', serif; font-size: clamp(1.7rem, 2.8vw, 2.3rem); color: var(--white); line-height: 1.12; letter-spacing: -.02em; margin-bottom: 1rem; }
+    .init-title em { font-style: italic; color: var(--em-l); }
+    .init-desc { font-size: .88rem; color: rgba(255,255,255,.58); line-height: 1.78; margin-bottom: 1.75rem; }
+    .init-meta { display: flex; gap: .75rem; flex-wrap: wrap; margin-bottom: 1.75rem; }
+    .init-chip { font-size: .66rem; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; padding: .26rem .7rem; border: .5px solid rgba(255,255,255,.18); border-radius: 2px; color: rgba(255,255,255,.65); }
+    .init-chip.hl { border-color: var(--em-l); color: var(--em-l); }
+    .init-btn { display: inline-flex; align-items: center; gap: .4rem; font-size: .76rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; padding: .62rem 1.3rem; background: var(--em); color: var(--white); border-radius: 2px; text-decoration: none; transition: background .2s; }
+    .init-btn:hover { background: var(--em-d); }
+    .init-right { display: flex; flex-direction: column; gap: 1rem; }
+    .genome-card { background: rgba(255,255,255,.05); border: .5px solid rgba(255,255,255,.12); border-radius: 3px; padding: 1.5rem 1.6rem; position: relative; overflow: hidden; }
+    .genome-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--em), var(--em-l)); }
+    .genome-role { font-size: .63rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--em-l); margin-bottom: .5rem; }
+    .genome-title { font-family: 'DM Serif Display', serif; font-size: 1.15rem; color: var(--white); line-height: 1.25; margin-bottom: .6rem; }
+    .genome-desc { font-size: .8rem; color: rgba(255,255,255,.52); line-height: 1.7; }
+    .genome-tags { display: flex; gap: .38rem; flex-wrap: wrap; margin-top: .8rem; }
+    .genome-tag { font-size: .6rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; padding: .12rem .44rem; border: .5px solid rgba(255,255,255,.14); color: rgba(255,255,255,.45); border-radius: 1px; }
+    .coe-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: rgba(255,255,255,.08); border: .5px solid rgba(255,255,255,.08); border-radius: 3px; overflow: hidden; }
+    .coe-stat { padding: 1.1rem 1.25rem; background: rgba(255,255,255,.04); }
+    .coe-stat-n { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--white); line-height: 1; margin-bottom: .2rem; }
+    .coe-stat-l { font-size: .6rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.35); }
+
+    /* ── PILLARS ── */
+    .pillars { background: var(--white); }
+    .pillars-intro { max-width: 500px; margin-bottom: 2.75rem; }
+    .pillars-desc { font-size: .86rem; color: var(--slate-l); line-height: 1.78; margin-top: .6rem; }
+    .pillars-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5px; background: var(--border); border: .5px solid var(--border); }
+    .p-card { background: var(--white); padding: 1.85rem 1.6rem; position: relative; overflow: hidden; transition: background .25s; }
+    .p-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--em); transform: scaleX(0); transform-origin: left; transition: transform .3s ease; }
+    .p-card:hover::after { transform: scaleX(1); }
+    .p-card:hover { background: #f7fffd; }
+    .p-num { font-family: 'DM Serif Display', serif; font-size: 2.4rem; color: var(--em-xl); line-height: 1; margin-bottom: 1rem; font-style: italic; }
+    .p-tag { display: inline-block; font-size: .63rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--em); background: var(--em-xl); padding: .16rem .52rem; border-radius: 1px; margin-bottom: .8rem; }
+    .p-title { font-family: 'DM Serif Display', serif; font-size: 1.15rem; color: var(--slate); line-height: 1.28; margin-bottom: .7rem; }
+    .p-desc { font-size: .81rem; color: var(--slate-l); line-height: 1.72; }
+    .p-arrow { display: inline-flex; align-items: center; gap: .35rem; margin-top: 1.1rem; font-size: .7rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--em); text-decoration: none; opacity: 0; transition: opacity .2s; }
+    .p-card:hover .p-arrow { opacity: 1; }
+
+    /* ── GRANTS STRIP ── */
+    .grants { background: var(--dark); padding: 2.5rem 2.5rem; }
+    .grants-inner { display: grid; grid-template-columns: auto 1fr; gap: 2.5rem; align-items: center; min-width: 0; }
+    .grants-scroll-wrap { min-width: 0; overflow: visible; }
+    .grants-label { font-size: .63rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.32); white-space: nowrap; }
+    .grants-scroll { display: flex; gap: 1.1rem; overflow-x: auto; overflow-y: visible; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.2) transparent; padding-bottom: 8px; cursor: grab; -webkit-overflow-scrolling: touch; }
+    .grants-scroll::-webkit-scrollbar { height: 3px; } .grants-scroll::-webkit-scrollbar-track { background: transparent; } .grants-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,.2); border-radius: 2px; }
+    .grant-pill { flex-shrink: 0; background: rgba(255,255,255,.05); border: .5px solid rgba(255,255,255,.1); border-radius: 2px; padding: .48rem .88rem; font-size: .73rem; color: rgba(255,255,255,.52); }
+    .grant-pill strong { color: rgba(255,255,255,.82); font-weight: 500; }
+    .grant-pill.featured { border-color: var(--em); background: rgba(5,150,105,.12); }
+    .grant-pill.featured strong { color: var(--em-l); }
+
+    /* ── PUBLICATIONS ── */
+    .publications { background: var(--cream); }
+    .pubs-layout { display: grid; grid-template-columns: 1fr 2fr; gap: 3.5rem; align-items: start; }
+    .pubs-side { position: sticky; top: 4.5rem; }
+    .pubs-side p { font-size: .83rem; color: var(--slate-l); line-height: 1.72; margin: .6rem 0 1.1rem; }
+    .filter-pills { display: flex; flex-direction: column; gap: .32rem; }
+    .fpill { font-size: .73rem; font-weight: 500; letter-spacing: .04em; padding: .4rem .78rem; border: .5px solid #cbd5e1; border-radius: 1px; background: var(--white); color: var(--slate-l); cursor: pointer; text-align: left; transition: border-color .2s, color .2s, background .2s; }
+    .fpill.active { border-color: var(--em); color: var(--em-d); background: var(--em-xl); }
+    .pub-list { display: flex; flex-direction: column; }
+    .pub-item { padding: 1.5rem 0; border-bottom: .5px solid var(--border); display: grid; grid-template-columns: 46px 1fr; gap: 1.1rem; align-items: start; }
+    .pub-item:first-child { border-top: .5px solid var(--border); }
+    .pub-yr { font-size: .73rem; font-weight: 500; color: var(--em); letter-spacing: .06em; padding-top: .15rem; }
+    .pub-title { font-family: 'DM Serif Display', serif; font-size: .95rem; color: var(--slate); line-height: 1.35; margin-bottom: .3rem; }
+    .pub-meta { font-size: .73rem; color: var(--slate-xl); margin-bottom: .5rem; font-style: italic; }
+    .pub-tags { display: flex; gap: .32rem; flex-wrap: wrap; margin-bottom: .5rem; }
+    .pt { font-size: .61rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; padding: .12rem .48rem; border: .5px solid #cbd5e1; color: var(--slate-l); border-radius: 1px; }
+    .pt.ev   { border-color: var(--em);  color: var(--em-d); background: var(--em-xl); }
+    .pt.vent { border-color: #bae6fd; color: #0c4a6e; background: #f0f9ff; }
+    .pt.cfd  { border-color: #ddd6fe; color: #4c1d95; background: #faf5ff; }
+    .pub-links { display: flex; gap: .85rem; }
+    .pl { font-size: .68rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--slate-l); text-decoration: none; transition: color .2s; }
+    .pl:hover { color: var(--em); }
+
+    /* ── PHD STUDENTS ── */
+    .phd-section { background: var(--white); }
+    .phd-intro { max-width: 520px; margin-bottom: 2.5rem; }
+    .phd-intro-desc { font-size: .86rem; color: var(--slate-l); line-height: 1.78; margin-top: .6rem; }
+    .phd-stats { display: flex; gap: 2rem; margin-top: 1.25rem; margin-bottom: 2.5rem; }
+    .phd-stat-n { font-family: 'DM Serif Display', serif; font-size: 1.9rem; color: var(--slate); line-height: 1; }
+    .phd-stat-l { font-size: .66rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--slate-xl); margin-top: .2rem; }
+    .phd-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.1rem; }
+    .phd-card { border: .5px solid var(--border); border-radius: 3px; padding: 1.5rem 1.4rem; transition: border-color .25s, background .2s; }
+    .phd-card:hover { border-color: #a7f3d0; background: #f7fffd; }
+    .phd-card.graduated { border-left: 3px solid var(--em); }
+    .phd-card.ongoing   { border-left: 3px solid #93c5fd; }
+    .phd-avatar { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', serif; font-size: 1rem; font-style: italic; margin-bottom: 1rem; }
+    .av-green  { background: var(--em-xl); color: var(--em-d); }
+    .av-blue   { background: #dbeafe; color: #1e40af; }
+    .av-teal   { background: #ccfbf1; color: #0f766e; }
+    .av-purple { background: #ede9fe; color: #6d28d9; }
+    .av-amber  { background: #fef3c7; color: #92400e; }
+    .phd-status { display: inline-block; font-size: .6rem; font-weight: 500; letter-spacing: .09em; text-transform: uppercase; padding: .14rem .48rem; border-radius: 1px; margin-bottom: .65rem; }
+    .status-grad    { background: var(--em-xl); color: var(--em-d); border: .5px solid #a7f3d0; }
+    .status-ongoing { background: #dbeafe; color: #1e40af; border: .5px solid #93c5fd; }
+    .phd-name   { font-family: 'DM Serif Display', serif; font-size: 1.05rem; color: var(--slate); line-height: 1.2; margin-bottom: .5rem; }
+    .phd-thesis { font-size: .8rem; color: var(--slate-m); line-height: 1.55; margin-bottom: .7rem; font-style: italic; }
+    .phd-tag { display: inline-block; font-size: .6rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; padding: .13rem .45rem; border: .5px solid #cbd5e1; color: var(--slate-l); border-radius: 1px; margin-right: .3rem; margin-bottom: .3rem; }
+
+    /* ── MEDIA ── */
+    .media { background: var(--cream); }
+    .media-intro { max-width: 480px; margin-bottom: 2.5rem; }
+    .media-intro-desc { font-size: .86rem; color: var(--slate-l); line-height: 1.78; margin-top: .6rem; }
+    .media-sub-lbl { font-size: .63rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--slate-xl); margin-bottom: 1rem; }
+    .cna-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.1rem; margin-bottom: 3rem; }
+    .cna-card { border: .5px solid var(--border); border-radius: 3px; overflow: hidden; transition: border-color .25s; text-decoration: none; display: block; }
+    .cna-card:hover { border-color: #a7f3d0; }
+    .cna-thumb { background: var(--slate); aspect-ratio: 16/9; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .cna-thumb-bg { position: absolute; inset: 0; opacity: .3; }
+    .yt-play { width: 42px; height: 42px; background: rgba(220,38,38,.88); border-radius: 5px; display: flex; align-items: center; justify-content: center; z-index: 2; }
+    .yt-tri { width: 0; height: 0; border-top: 7px solid transparent; border-bottom: 7px solid transparent; border-left: 13px solid white; margin-left: 3px; }
+    .cna-badge-chip { position: absolute; bottom: .55rem; left: .55rem; background: rgba(220,38,38,.92); color: white; font-size: .58rem; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; padding: .15rem .45rem; border-radius: 2px; z-index: 2; }
+    .cna-body { padding: .9rem 1rem 1rem; background: var(--white); }
+    .cna-year { font-size: .62rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--em); margin-bottom: .3rem; }
+    .cna-title { font-family: 'DM Serif Display', serif; font-size: .9rem; color: var(--slate); line-height: 1.3; margin-bottom: .35rem; }
+    .cna-desc { font-size: .74rem; color: var(--slate-l); line-height: 1.6; }
+    .cna-link { display: inline-flex; align-items: center; gap: .3rem; margin-top: .6rem; font-size: .65rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--em); }
+    .news-divider { height: .5px; background: var(--border); margin-bottom: 2rem; }
+    .news-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1.1rem; }
+    .news-card { border: .5px solid var(--border); border-radius: 3px; padding: 1.1rem 1.15rem; background: var(--white); transition: border-color .25s, background .2s; text-decoration: none; display: block; }
+    .news-card:hover { border-color: #a7f3d0; }
+    .news-outlet-row { display: flex; align-items: center; gap: .5rem; margin-bottom: .6rem; }
+    .outlet-chip { font-size: .6rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; padding: .15rem .48rem; border-radius: 1px; }
+    .chip-st  { background: #fef9c3; color: #854d0e; border: .5px solid #fde68a; }
+    .chip-zb  { background: #fee2e2; color: #991b1b; border: .5px solid #fca5a5; }
+    .chip-moe { background: #dbeafe; color: #1e40af; border: .5px solid #93c5fd; }
+    .chip-cna { background: #fee2e2; color: #991b1b; border: .5px solid #fca5a5; }
+    .news-year  { font-size: .62rem; color: var(--slate-xl); letter-spacing: .06em; }
+    .news-title { font-family: 'DM Serif Display', serif; font-size: .88rem; color: var(--slate); line-height: 1.32; margin-bottom: .4rem; }
+    .news-desc  { font-size: .74rem; color: var(--slate-l); line-height: 1.6; }
+    .news-link  { display: inline-flex; align-items: center; gap: .3rem; margin-top: .55rem; font-size: .63rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--em); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--dark); color: rgba(255,255,255,.38); padding: 2.5rem 2.5rem; display: flex; justify-content: space-between; align-items: center; font-size: .73rem; letter-spacing: .04em; flex-wrap: wrap; gap: 1.5rem; }
+    .ft-left {}
+    .ft-name { font-family: 'DM Serif Display', serif; font-size: .95rem; color: rgba(255,255,255,.85); }
+    .ft-aff  { margin-top: .2rem; }
+    .ft-copy { margin-top: .35rem; font-size: .66rem; color: rgba(255,255,255,.25); }
+    .ft-links { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    .ft-links a { color: rgba(255,255,255,.35); text-decoration: none; transition: color .2s; }
+    .ft-links a:hover { color: var(--em-l); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-video { min-height: 300px; }
+      .init-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .pubs-layout { grid-template-columns: 1fr; }
+      .pubs-side { position: static; }
+      .phd-grid { grid-template-columns: 1fr 1fr; }
+      .cna-grid { grid-template-columns: 1fr; }
+      .news-grid { grid-template-columns: 1fr 1fr; }
+      .grants-inner { grid-template-columns: 1fr; gap: 1rem; }
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { display: none; }
+      section { padding: 3rem 1.25rem; }
+      .initiative { padding: 3rem 1.25rem; }
+      .grants { padding: 2rem 1.25rem; }
+      footer { padding: 2rem 1.25rem; flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 600px) {
+      .phd-grid { grid-template-columns: 1fr; }
+      .news-grid { grid-template-columns: 1fr; }
+      .coe-stats { grid-template-columns: repeat(3,1fr); }
+    }
+    /* ── MODAL ── */
+    .grant-pill.clickable { cursor: pointer; transition: border-color .2s, background .2s; }
+    .grant-pill.clickable:hover { border-color: var(--em-l); background: rgba(110,231,183,.12); color: rgba(255,255,255,.85); }
+    .grant-pill.featured.clickable:hover { background: rgba(5,150,105,.25); }
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.65); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+    .modal-overlay.open { display: flex; }
+    .modal-box { background: var(--white); border-radius: 4px; padding: 2.5rem; max-width: 560px; width: 90%; position: relative; max-height: 90vh; overflow-y: auto; animation: modalIn .2s ease; }
+    @keyframes modalIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+    .modal-close { position: absolute; top: 1rem; right: 1.25rem; background: none; border: none; font-size: 1.4rem; color: var(--slate-l); cursor: pointer; line-height: 1; }
+    .modal-close:hover { color: var(--slate); }
+    .modal-funder { font-size: .65rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--em); margin-bottom: .5rem; }
+    .modal-title { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: var(--slate); line-height: 1.25; margin-bottom: .35rem; }
+    .modal-amount { font-size: .8rem; font-weight: 500; color: var(--slate-l); margin-bottom: 1.1rem; padding-bottom: 1.1rem; border-bottom: .5px solid var(--border); }
+    .modal-role { display: inline-block; font-size: .62rem; font-weight: 500; letter-spacing: .09em; text-transform: uppercase; padding: .15rem .5rem; background: var(--em-xl); color: var(--em-d); border-radius: 1px; margin-bottom: 1rem; }
+    .modal-desc { font-size: .86rem; color: var(--slate-l); line-height: 1.78; margin-bottom: 1.25rem; }
+    .modal-meta { display: flex; flex-direction: column; gap: .45rem; margin-bottom: 1.25rem; }
+    .modal-meta-row { font-size: .78rem; color: var(--slate-l); }
+    .modal-meta-row strong { color: var(--slate-m); font-weight: 500; }
+    .modal-tags { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .modal-tag { font-size: .61rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; padding: .13rem .48rem; border: .5px solid #cbd5e1; color: var(--slate-l); border-radius: 1px; }
+    .modal-link { display: inline-flex; align-items: center; gap: .4rem; font-size: .76rem; font-weight: 500; letter-spacing: .05em; text-transform: uppercase; padding: .6rem 1.2rem; background: var(--slate); color: var(--white); border-radius: 2px; text-decoration: none; transition: background .2s; }
+    .modal-link:hover { background: var(--em-d); }
+
+    /* ── ABOUT ── */
+    .about { background: var(--white); padding: 0; }
+    .about-inner { display: grid; grid-template-columns: 1fr 1.6fr; min-height: 520px; }
+    .about-photo { position: relative; overflow: hidden; background: #2a2f38; }
+    .about-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; filter: brightness(.95) contrast(1.02); }
+    .about-photo-caption { position: absolute; bottom: 1.25rem; left: 1.25rem; font-size: .62rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.4); }
+    .about-content { padding: 4rem 3.5rem 4rem 3rem; display: flex; flex-direction: column; justify-content: center; border-left: .5px solid var(--border); }
+    .about-content .sec-title { margin-bottom: 1.5rem; }
+    .about-bio { font-size: .92rem; color: var(--slate-l); line-height: 1.85; margin-bottom: 1.75rem; }
+    .about-bio p + p { margin-top: .9rem; }
+    .about-credentials { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem 1.5rem; margin-bottom: 2rem; }
+    .cred-item { display: flex; align-items: flex-start; gap: .5rem; font-size: .78rem; color: var(--slate-l); line-height: 1.4; }
+    .cred-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--em); flex-shrink: 0; margin-top: .45rem; }
+    .about-links { display: flex; gap: .75rem; flex-wrap: wrap; }
+    @media (max-width: 900px) {
+      .about-inner { grid-template-columns: 1fr; }
+      .about-photo { min-height: 320px; }
+      .about-content { padding: 2.5rem 1.25rem; border-left: none; border-top: .5px solid var(--border); }
+      .about-credentials { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo"><img src="data:image/png;base64,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" alt="Dr. Zheng Kai logo"><span class="nav-logo-text">Dr. Zheng Kai<span>.</span></span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#people">People</a></li>
+      <li><a href="#media">Media</a></li>
+      <li><a href="https://www.sutd.edu.sg/profile/zheng-kai/" target="_blank">SUTD Profile</a></li>
+    </ul>
+    <a href="mailto:kai_zheng@sutd.edu.sg" class="nav-cta">Contact</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero" id="home">
+    <div class="hero-text">
+      <div class="hero-logo-wrap" style="margin-bottom:1.25rem;">
+        <img src="logo.png" alt="Research logo — building airflow" style="width:56px;height:56px;object-fit:contain;">
+      </div>
+      <div class="eyebrow">Building Science · SUTD · Singapore</div>
+      <h1>Keeping people<br><em>cool</em> without<br>the energy cost</h1>
+      <p class="hero-desc">Lecturer at the Architecture and Sustainable Design pillar, SUTD. My research bridges high-fidelity simulation, AI surrogates, and policy translation to deliver low-energy thermal comfort in tropical climates.</p>
+      <div class="hero-meta">
+        <span>&#127981; SUTD, Singapore</span>
+        <span>&#128218; h-index 3 &middot; 76 citations</span>
+        <span>&#9989; BCA Green Mark AP &middot; WELL AP</span>
+      </div>
+      <div class="hero-actions">
+        <a href="https://scholar.google.com/citations?user=nKz7dMUAAAAJ&hl=en" class="btn-p" target="_blank">Google Scholar &rarr;</a>
+        <a href="https://www.sutd.edu.sg/profile/zheng-kai/" class="btn-g" target="_blank">SUTD Profile</a>
+        <a href="https://www.linkedin.com/in/zhengkai-sutd/" class="btn-g" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+    <div class="hero-video">
+      <div class="flow-canvas" id="flowCanvas"></div>
+      <div class="video-stat">
+        <div class="stat-n">$4M+</div>
+        <div class="stat-l">research funding</div>
+      </div>
+      <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.85;z-index:1;">
+        <source src="hero.mp4" type="video/mp4">
+      </video>
+      <div class="video-badge">
+        <div class="pulse"></div>
+        <span class="badge-txt">Simulation Preview</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="about" id="about">
+    <div class="about-inner">
+      <div class="about-photo">
+        <img src="profile.jpg" alt="Dr. Zheng Kai — Lecturer, Architecture and Sustainable Design, SUTD">
+        <div class="about-photo-caption">Dr. Zheng Kai · SUTD</div>
+      </div>
+      <div class="about-content">
+        <div class="sec-hdr"><span class="sec-lbl">About</span><div class="sec-rule"></div><span class="sec-num">00</span></div>
+        <div class="sec-title">Sustainable architecture<br>researcher &amp; educator</div>
+        <div class="about-bio">
+          <p>I am a Lecturer in Architecture and Sustainable Design at the Singapore University of Technology and Design (SUTD), where I lead research at the intersection of building science, computational simulation, and climate adaptation. My work is driven by a single question: how do we keep people comfortable in tropical heat without depending on energy-intensive air conditioning?</p>
+          <p>My research spans high-fidelity CFD simulation, evaporative and desiccant cooling systems, AI-driven design surrogates, and pandemic-resilient ventilation — always with an eye toward real-world policy translation and community impact. I have contributed to over SGD 37 million in funded research across MND, MOE, Tote Board, and industry partners.</p>
+          <p>Beyond the lab, I advise PhD students, serve on international scientific committees, hold BCA Green Mark and WELL AP accreditations, and regularly engage the public through CNA, Straits Times, and Zaobao on Singapore's heat and sustainability challenges.</p>
+        </div>
+        <div class="about-credentials">
+          <div class="cred-item"><div class="cred-dot"></div><span>PhD Building Science, NUS (2019)</span></div>
+          <div class="cred-item"><div class="cred-dot"></div><span>BCA Green Mark Accredited Professional</span></div>
+          <div class="cred-item"><div class="cred-dot"></div><span>Lecturer, ASD Pillar, SUTD (2023–)</span></div>
+          <div class="cred-item"><div class="cred-dot"></div><span>WELL Building Standard Accredited Professional</span></div>
+          <div class="cred-item"><div class="cred-dot"></div><span>Faculty Fellow, SUTD (2020–2023)</span></div>
+          <div class="cred-item"><div class="cred-dot"></div><span>START Award Special Mention, MOE (2020)</span></div>
+        </div>
+        <div class="about-links">
+          <a href="https://www.sutd.edu.sg/profile/zheng-kai/" class="btn-p" target="_blank">SUTD Profile &rarr;</a>
+          <a href="https://scholar.google.com/citations?user=nKz7dMUAAAAJ&hl=en" class="btn-g" target="_blank">Google Scholar</a>
+          <a href="https://orcid.org/0000-0002-4263-7638" class="btn-g" target="_blank">ORCID</a>
+          <a href="mailto:kai_zheng@sutd.edu.sg" class="btn-g">Email Me</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BE AI CENTRE OF EXCELLENCE -->
+  <div class="initiative" id="initiative">
+    <div class="init-inner">
+      <div>
+        <div class="sec-hdr init-sec-hdr">
+          <span class="sec-lbl" style="color:var(--em-l)">Latest Initiative</span>
+          <div class="sec-rule" style="background:rgba(255,255,255,.1)"></div>
+          <span class="sec-num" style="color:rgba(255,255,255,.3)">2026</span>
+        </div>
+        <div class="init-eyebrow">MND &times; SUTD &middot; SGD 30 Million</div>
+        <div class="init-title">Built Environment<br><em>AI Centre of Excellence</em></div>
+        <p class="init-desc">The Ministry of National Development and SUTD have launched Singapore's SGD 30M Built Environment AI Centre of Excellence &mdash; developing AI-driven solutions to tackle climate change impacts, manpower shortages, and sustainability challenges across the construction and facilities management sectors.</p>
+        <div class="init-meta">
+          <span class="init-chip hl">SGD 30 Million</span>
+          <span class="init-chip">MND Funded &middot; RIE2030</span>
+          <span class="init-chip">SUTD Host Institution</span>
+          <span class="init-chip">Launched Feb 2026</span>
+        </div>
+        <a href="https://www.businesstimes.com.sg/property/mnd-sutd-launch-s30-million-built-environment-ai-centre-excellence" class="init-btn" target="_blank">Read Announcement &rarr;</a>
+      </div>
+      <div class="init-right">
+        <div class="genome-card">
+          <div class="genome-role">Co-PI &middot; Work Package</div>
+          <div class="genome-title">Singapore Building Genome Project</div>
+          <p class="genome-desc">A large-scale data initiative to construct a comprehensive, AI-ready dataset of Singapore's built environment &mdash; integrating building geometry, energy performance, material properties, and microclimate data to enable city-scale simulation, benchmarking, and policy-driven design optimisation.</p>
+          <div class="genome-tags">
+            <span class="genome-tag">Building Data</span>
+            <span class="genome-tag">AI Surrogates</span>
+            <span class="genome-tag">Urban Scale</span>
+            <span class="genome-tag">Energy Benchmarking</span>
+            <span class="genome-tag">Working Title</span>
+          </div>
+        </div>
+        <div class="coe-stats">
+          <div class="coe-stat"><div class="coe-stat-n">$30M</div><div class="coe-stat-l">Centre Funding</div></div>
+          <div class="coe-stat"><div class="coe-stat-n">4</div><div class="coe-stat-l">Research Areas</div></div>
+          <div class="coe-stat"><div class="coe-stat-n">2026</div><div class="coe-stat-l">Launched</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRANTS STRIP -->
+  <div class="grants">
+    <div class="grants-inner">
+      <div class="grants-label">Active Grants<br><span style="opacity:.5;font-size:.58rem;letter-spacing:.05em;text-transform:none;font-weight:400">Click to learn more</span></div>
+      <div class="grants-scroll-wrap">
+        <div class="grants-scroll" id="grantsScroll">
+          <div class="grant-pill featured clickable" onclick="openGrant('beai')"><strong>MND &times; SUTD</strong> BE AI Centre of Excellence &mdash; SGD 30M &#8250;</div>
+          <div class="grant-pill clickable" onclick="openGrant('cot')"><strong>Cities of Tomorrow</strong> Shaping the Breeze: NV Guidelines &mdash; SGD 2.3M &#8250;</div>
+          <div class="grant-pill clickable" onclick="openGrant('ssrc')"><strong>MOE SSRC</strong> Urban Heat &amp; Climate Resilient Citizenry &mdash; SGD 2.42M &#8250;</div>
+          <div class="grant-pill clickable" onclick="openGrant('tote')"><strong>Tote Board</strong> Heat Resilience of Vulnerable Communities &mdash; SGD 1M &#8250;</div>
+          <div class="grant-pill clickable" onclick="openGrant('experion')"><strong>Experion</strong> Advanced Facades for Healthy Residential Dev &mdash; SGD 262K &#8250;</div>
+          <div class="grant-pill clickable" onclick="openGrant('sunventus')"><strong>SUTD</strong> Sunventus Hybrid Solar-Wind System &mdash; SGD 201.5K &#8250;</div>
+          <div class="grant-pill clickable" onclick="openGrant('evap')"><strong>SUTD</strong> Evaporative Cooling for Thermal Comfort &mdash; SGD 88.9K &#8250;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRANT MODAL -->
+  <div id="grantModal" class="modal-overlay" onclick="closeGrant(event)">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeGrant()">&times;</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- RESEARCH PILLARS -->
+  <section class="pillars" id="research">
+    <div class="pillars-intro">
+      <div class="sec-hdr"><span class="sec-lbl">Focus Areas</span><div class="sec-rule"></div><span class="sec-num">01</span></div>
+      <div class="sec-title">Research Pillars</div>
+      <p class="pillars-desc">Three interconnected themes anchoring a research programme on human-centred, low-energy cooling for tropical built environments &mdash; from fluid simulation to AI acceleration to real-world policy impact.</p>
+    </div>
+    <div class="pillars-grid">
+      <div class="p-card">
+        <div class="p-num">01</div>
+        <div class="p-tag">Passive Cooling</div>
+        <div class="p-title">Evaporative &amp; Desiccant Cooling for Tropical Climates</div>
+        <p class="p-desc">Developing and validating dry-mist, indirect evaporative, and desiccant-based systems for low-energy thermal comfort in Singapore's humid tropics &mdash; from secondary schools to HDB housing to worker dormitories.</p>
+        <a href="#publications" class="p-arrow">Explore work &rarr;</a>
+      </div>
+      <div class="p-card">
+        <div class="p-num">02</div>
+        <div class="p-tag">CFD &amp; Simulation</div>
+        <div class="p-title">Computational Airflow Modelling &amp; Natural Ventilation</div>
+        <p class="p-desc">High-fidelity CFD simulation of wind flow, airborne transmission, and ventilation performance &mdash; applied to pandemic-resilient design, campus wind redirection, and bridging the gap between ventilation standards and practice.</p>
+        <a href="#publications" class="p-arrow">Explore work &rarr;</a>
+      </div>
+      <div class="p-card">
+        <div class="p-num">03</div>
+        <div class="p-tag">AI &amp; Surrogates</div>
+        <div class="p-title">Machine Learning Surrogates for Early-Stage Design</div>
+        <p class="p-desc">Training physics-informed neural networks, GRU Seq2Seq, and Gaussian Process Regression surrogates on CFD data for real-time parametric design support &mdash; from energy prediction to automated floorplan generation.</p>
+        <a href="#publications" class="p-arrow">Explore work &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section class="publications" id="publications">
+    <div class="pubs-layout">
+      <div class="pubs-side">
+        <div class="sec-hdr"><span class="sec-lbl">Scholarship</span><div class="sec-rule"></div><span class="sec-num">02</span></div>
+        <div class="sec-title">Recent Publications</div>
+        <p>Peer-reviewed work in passive cooling, airflow simulation, and AI-assisted design. Full list on Google Scholar.</p>
+        <div class="filter-pills">
+          <button class="fpill active" onclick="filterPubs(this,'all')">All</button>
+          <button class="fpill" onclick="filterPubs(this,'ev')">Evaporative Cooling</button>
+          <button class="fpill" onclick="filterPubs(this,'vent')">Ventilation</button>
+          <button class="fpill" onclick="filterPubs(this,'cfd')">CFD &amp; Simulation</button>
+        </div>
+      </div>
+      <div class="pub-list" id="pubList">
+        <div class="pub-item" data-tags="vent cfd">
+          <div class="pub-yr">2025</div>
+          <div>
+            <div class="pub-title">Discrepancies Between Design and Practice in Natural Ventilation</div>
+            <div class="pub-meta">SBE Conference, ETH Zurich, Switzerland</div>
+            <div class="pub-tags"><span class="pt vent">Ventilation</span><span class="pt cfd">CFD</span></div>
+            <div class="pub-links"><a href="#" class="pl">[Proceedings]</a></div>
+          </div>
+        </div>
+        <div class="pub-item" data-tags="ev">
+          <div class="pub-yr">2024</div>
+          <div>
+            <div class="pub-title">Desiccant-Based Air Cooling in Classrooms</div>
+            <div class="pub-meta">ARCH24, 6th Int'l Conference on Architecture, Research, Care and Health &middot; Aalto University, Finland</div>
+            <div class="pub-tags"><span class="pt ev">Evaporative</span><span class="pt">Desiccant</span></div>
+            <div class="pub-links"><a href="#" class="pl">[Proceedings]</a></div>
+          </div>
+        </div>
+        <div class="pub-item" data-tags="vent cfd">
+          <div class="pub-yr">2021</div>
+          <div>
+            <div class="pub-title">Ventilation Performance in Worker Dormitories: An Airflow Study</div>
+            <div class="pub-meta">Sustainable Cities and Society, 103327 &middot; Zheng, K., Ortner, P., Tay, J., &amp; Lim, Y.</div>
+            <div class="pub-tags"><span class="pt vent">Ventilation</span><span class="pt cfd">CFD</span></div>
+            <div class="pub-links"><a href="https://doi.org/10.1016/j.scs.2021.103327" class="pl" target="_blank">[DOI]</a></div>
+          </div>
+        </div>
+        <div class="pub-item" data-tags="ev">
+          <div class="pub-yr">2019</div>
+          <div>
+            <div class="pub-title">Thermal Comfort with Dry Mist Systems in the Tropics</div>
+            <div class="pub-meta">Sustainable Cities and Society, 51, 101727 &middot; Zheng, K., Yuan, C., Wong, N.H., Cen, C.</div>
+            <div class="pub-tags"><span class="pt ev">Evaporative</span><span class="pt">Thermal Comfort</span></div>
+            <div class="pub-links"><a href="https://doi.org/10.1016/j.scs.2019.101727" class="pl" target="_blank">[DOI]</a></div>
+          </div>
+        </div>
+        <div class="pub-item" data-tags="ev cfd">
+          <div class="pub-yr">2018</div>
+          <div>
+            <div class="pub-title">Cooling Effects of Dry Mist Systems on Outdoor Thermal Environments</div>
+            <div class="pub-meta">Building and Environment, 141, 61&ndash;70 &middot; Zheng, K., Ichinose, M., &amp; Wong, N.</div>
+            <div class="pub-tags"><span class="pt ev">Evaporative</span><span class="pt cfd">CFD</span></div>
+            <div class="pub-links"><a href="https://doi.org/10.1016/j.buildenv.2018.05.046" class="pl" target="_blank">[DOI]</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHD STUDENTS -->
+  <section class="phd-section" id="people">
+    <div class="phd-intro">
+      <div class="sec-hdr"><span class="sec-lbl">Graduate Supervision</span><div class="sec-rule"></div><span class="sec-num">03</span></div>
+      <div class="sec-title">PhD Students</div>
+      <p class="phd-intro-desc">Supervising a diverse cohort of doctoral researchers working at the intersection of building science, renewable energy, AI, and climate resilience &mdash; from tropical Singapore to Sub-Saharan Africa.</p>
+      <div class="phd-stats">
+        <div><div class="phd-stat-n">3</div><div class="phd-stat-l">Graduated</div></div>
+        <div><div class="phd-stat-n">2</div><div class="phd-stat-l">Ongoing</div></div>
+        <div><div class="phd-stat-n">5</div><div class="phd-stat-l">Total supervised</div></div>
+      </div>
+    </div>
+    <div class="phd-grid">
+      <div class="phd-card graduated">
+        <div class="phd-avatar av-green">MS</div>
+        <div class="phd-status status-grad">Graduated</div>
+        <div class="phd-name">Michele Sodano</div>
+        <div class="phd-thesis">Advancing Energy-Efficient Building Design Through Deep Learning Surrogate Models</div>
+        <span class="phd-tag">Machine Learning</span><span class="phd-tag">Energy Simulation</span><span class="phd-tag">GRU Seq2Seq</span>
+      </div>
+      <div class="phd-card graduated">
+        <div class="phd-avatar av-blue">LL</div>
+        <div class="phd-status status-grad">Graduated</div>
+        <div class="phd-name">Lampson Leung</div>
+        <div class="phd-thesis">Design and Performance Assessment of a Building Integrated Hybrid Solar-Wind Energy System</div>
+        <span class="phd-tag">Renewable Energy</span><span class="phd-tag">Solar-Wind</span><span class="phd-tag">Stack Ventilation</span>
+      </div>
+      <div class="phd-card graduated">
+        <div class="phd-avatar av-teal">HW</div>
+        <div class="phd-status status-grad">Graduated</div>
+        <div class="phd-name">Harry Woon</div>
+        <div class="phd-thesis">Assessing Embodied and Operational Carbon in Singapore's Institutional Buildings: The Impact of Air Conditioning on Energy Consumption</div>
+        <span class="phd-tag">Life Cycle Carbon</span><span class="phd-tag">Net Zero</span><span class="phd-tag">LCA</span>
+      </div>
+      <div class="phd-card ongoing">
+        <div class="phd-avatar av-purple">DL</div>
+        <div class="phd-status status-ongoing">Ongoing</div>
+        <div class="phd-name">Daniel Leong</div>
+        <div class="phd-thesis">Intelligent Localised In-Door Micro-Cooling System</div>
+        <span class="phd-tag">Evaporative Cooling</span><span class="phd-tag">AI Control</span><span class="phd-tag">Thermal Comfort</span>
+      </div>
+      <div class="phd-card ongoing">
+        <div class="phd-avatar av-amber">NK</div>
+        <div class="phd-status status-ongoing">Ongoing</div>
+        <div class="phd-name">Nad&egrave;ge Kougnigan</div>
+        <div class="phd-thesis">Climate Change Impacts on Residential Buildings in Sub-Saharan Africa: Development of a Framework to Improve Performance</div>
+        <span class="phd-tag">Climate Resilience</span><span class="phd-tag">Sub-Saharan Africa</span><span class="phd-tag">Building Performance</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEDIA & PRESS -->
+  <section class="media" id="media">
+    <div class="media-intro">
+      <div class="sec-hdr"><span class="sec-lbl">Press &amp; Media</span><div class="sec-rule"></div><span class="sec-num">04</span></div>
+      <div class="sec-title">In the News</div>
+      <p class="media-intro-desc">Research on heat, ventilation, and low-energy cooling has been featured across national broadcast and print media in Singapore.</p>
+    </div>
+
+    <div class="media-sub-lbl">Channel NewsAsia &mdash; Documentaries &amp; Broadcasts</div>
+    <div class="cna-grid">
+      <a href="https://www.youtube.com/watch?v=Mcv1zxfL960&t=1277s" class="cna-card" target="_blank">
+        <div class="cna-thumb" style="background:#0f172a">
+          <div class="cna-thumb-bg" style="background:linear-gradient(135deg,#059669,#0f172a)"></div>
+          <div class="yt-play"><div class="yt-tri"></div></div>
+          <div class="cna-badge-chip">CNA Talking Point</div>
+        </div>
+        <div class="cna-body">
+          <div class="cna-year">2024</div>
+          <div class="cna-title">Can We Beat the Heat Without Air-Conditioning?</div>
+          <div class="cna-desc">Expert feature on passive cooling alternatives for Singapore homes and communities.</div>
+          <div class="cna-link">Watch &rarr;</div>
+        </div>
+      </a>
+      <a href="https://www.youtube.com/watch?v=Po7wPkjDmo0&t=695s" class="cna-card" target="_blank">
+        <div class="cna-thumb" style="background:#0f172a">
+          <div class="cna-thumb-bg" style="background:linear-gradient(135deg,#0369a1,#0f172a)"></div>
+          <div class="yt-play"><div class="yt-tri"></div></div>
+          <div class="cna-badge-chip">CNA Documentary</div>
+        </div>
+        <div class="cna-body">
+          <div class="cna-year">2024</div>
+          <div class="cna-title">How to Beat the Heat Without Using Air-Conditioning</div>
+          <div class="cna-desc">Insights on evaporative cooling and Singapore's urban heat challenge.</div>
+          <div class="cna-link">Watch &rarr;</div>
+        </div>
+      </a>
+      <a href="https://www.youtube.com/watch?v=TzRZljciU8s&t=456s" class="cna-card" target="_blank">
+        <div class="cna-thumb" style="background:#0f172a">
+          <div class="cna-thumb-bg" style="background:linear-gradient(135deg,#7c3aed,#0f172a)"></div>
+          <div class="yt-play"><div class="yt-tri"></div></div>
+          <div class="cna-badge-chip">CNA Talking Point</div>
+        </div>
+        <div class="cna-body">
+          <div class="cna-year">2022</div>
+          <div class="cna-title">Should Smoking at Home Be Banned?</div>
+          <div class="cna-desc">CFD simulation evidence on secondhand smoke transmission in HDB units.</div>
+          <div class="cna-link">Watch &rarr;</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="news-divider"></div>
+    <div class="media-sub-lbl" style="margin-bottom:1rem">Print &amp; Online News</div>
+    <div class="news-grid">
+      <a href="https://www.straitstimes.com/multimedia/graphics/2022/01/who-let-the-tigers-out/index.html" class="news-card" target="_blank">
+        <div class="news-outlet-row"><span class="outlet-chip chip-st">Straits Times</span><span class="news-year">2022</span></div>
+        <div class="news-title">Who Let the Tigers Out &mdash; CNY Light-Up Chinatown 2022</div>
+        <div class="news-desc">Interactive feature on the Year of the Tiger Chinatown light-up, with SUTD student design contributions under Dr. Zheng Kai's faculty advisory role.</div>
+        <div class="news-link">Read article &rarr;</div>
+      </a>
+      <a href="https://www.straitstimes.com/opinion/forum/forum-building-services-play-big-role-in-fight-against-covid-19" class="news-card" target="_blank">
+        <div class="news-outlet-row"><span class="outlet-chip chip-st">Straits Times</span><span class="news-year">2021</span></div>
+        <div class="news-title">Building Services Play a Big Role in the Fight Against COVID-19</div>
+        <div class="news-desc">Forum letter applying airflow and ventilation research to pandemic-resilient building design and reducing airborne transmission risk.</div>
+        <div class="news-link">Read article &rarr;</div>
+      </a>
+      <a href="https://www.mewatch.sg/watch/Sep-2021-CNA-Singapore-Tonight-241613" class="news-card" target="_blank">
+        <div class="news-outlet-row"><span class="outlet-chip chip-cna">CNA &middot; meWatch</span><span class="news-year">2021</span></div>
+        <div class="news-title">COVID-19 Transmission &mdash; CNA Singapore Tonight</div>
+        <div class="news-desc">Live broadcast interview on COVID-19 airborne transmission using CFD simulation of respiratory droplet spread in enclosed environments.</div>
+        <div class="news-link">Watch segment &rarr;</div>
+      </a>
+      <a href="https://www.straitstimes.com/singapore/consumer/iconic-cny-light-up-to-go-ahead-in-chinatown-amid-muted-festivities-this-year" class="news-card" target="_blank">
+        <div class="news-outlet-row"><span class="outlet-chip chip-st">Straits Times</span><span class="news-year">2021</span></div>
+        <div class="news-title">Iconic CNY Light-Up to Go Ahead in Chinatown Amid Muted Festivities</div>
+        <div class="news-desc">Coverage of the Chinatown Chinese New Year light-up, featuring SUTD student design contributions under Dr. Zheng Kai's faculty advisory role.</div>
+        <div class="news-link">Read article &rarr;</div>
+      </a>
+      <a href="https://www.moe.gov.sg/news/speeches/20200924-speech-by-mr-lawrence-wong-minister-for-education-at-the-virtual-singapore-teaching-and-academic-research-talent-scheme-start-award-ceremony" class="news-card" target="_blank">
+        <div class="news-outlet-row"><span class="outlet-chip chip-moe">MOE Singapore</span><span class="news-year">2020</span></div>
+        <div class="news-title">Singapore Teaching &amp; Academic Research Talent (START) Award</div>
+        <div class="news-desc">Special mention by Minister for Education Lawrence Wong at the national START Award ceremony, recognising early-career academic excellence.</div>
+        <div class="news-link">Read speech &rarr;</div>
+      </a>
+      <a href="https://www.zaobao.com.sg/news/singapore/story20200925-1087581" class="news-card" target="_blank">
+        <div class="news-outlet-row"><span class="outlet-chip chip-zb">Zaobao</span><span class="news-year">2020</span></div>
+        <div class="news-title">START Award &mdash; Special Mention by Minister of Education</div>
+        <div class="news-desc">Lianhe Zaobao coverage of the START Award ceremony, highlighting recognition as an outstanding young academic in Singapore's higher education sector.</div>
+        <div class="news-link">Read article &rarr;</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="ft-left">
+      <div class="ft-name">Dr. Zheng Kai</div>
+      <div class="ft-aff">Lecturer, Architecture &amp; Sustainable Design &middot; SUTD &middot; Singapore</div>
+      <div class="ft-copy">&copy; 2026 &middot; zhengkai-sg.github.io</div>
+    </div>
+    <div class="ft-links">
+      <a href="https://scholar.google.com/citations?user=nKz7dMUAAAAJ&hl=en" target="_blank">Google Scholar</a>
+      <a href="https://orcid.org/0000-0002-4263-7638" target="_blank">ORCID</a>
+      <a href="https://www.linkedin.com/in/zhengkai-sutd/" target="_blank">LinkedIn</a>
+      <a href="https://www.sutd.edu.sg/profile/zheng-kai/" target="_blank">SUTD Profile</a>
+      <a href="mailto:kai_zheng@sutd.edu.sg">Email</a>
+    </div>
+  </footer>
+
+  <script>
+    // CFD flow lines
+    (function() {
+      var canvas = document.getElementById('flowCanvas');
+      if (!canvas) return;
+      for (var i = 0; i < 26; i++) {
+        var el = document.createElement('div');
+        el.className = 'flow-line';
+        var top = 2 + (i / 26) * 96;
+        var w = 32 + Math.random() * 58;
+        var dur = 2.8 + Math.random() * 4.5;
+        var delay = -Math.random() * dur;
+        el.style.cssText = 'top:' + top + '%;width:' + w + '%;left:0;opacity:0.15;animation-duration:' + dur + 's;animation-delay:' + delay + 's;';
+        canvas.appendChild(el);
+      }
+    })();
+
+    // Drag-to-scroll for grants
+    (function() {
+      var el = document.getElementById('grantsScroll');
+      if (!el) return;
+      var isDown = false, startX, scrollLeft;
+      el.addEventListener('mousedown', function(e) { isDown = true; el.style.cursor='grabbing'; startX = e.pageX - el.offsetLeft; scrollLeft = el.scrollLeft; });
+      el.addEventListener('mouseleave', function() { isDown = false; el.style.cursor='grab'; });
+      el.addEventListener('mouseup', function() { isDown = false; el.style.cursor='grab'; });
+      el.addEventListener('mousemove', function(e) { if (!isDown) return; e.preventDefault(); var x = e.pageX - el.offsetLeft; el.scrollLeft = scrollLeft - (x - startX); });
+    })();
+
+    // Publication filter
+    function filterPubs(btn, tag) {
+      document.querySelectorAll('.fpill').forEach(function(p) { p.classList.remove('active'); });
+      btn.classList.add('active');
+      document.querySelectorAll('.pub-item').forEach(function(item) {
+        if (tag === 'all') {
+          item.style.display = '';
+        } else {
+          var tags = item.getAttribute('data-tags') || '';
+          item.style.display = tags.indexOf(tag) !== -1 ? '' : 'none';
+        }
+      });
+    }
+    // Grant modal data
+    var grants = {
+      cot: {
+        funder: 'Cities of Tomorrow · RIE2025',
+        title: 'Shaping the Breeze: Translating Science into Guidelines for Natural Ventilation in Singapore\'s Buildings',
+        amount: 'SGD 2,356,767 · Multi-year',
+        role: 'Lead Principal Investigator',
+        desc: 'Singapore currently lacks a validated, performance-based natural ventilation framework that reflects real tropical conditions. This project creates the first end-to-end, evidence-based NV framework and decision-support tool — closing the long-standing gap between design assumptions and actual ventilation performance. The research integrates IoT sensor networks for real-time airflow monitoring, calibrated CFD simulation aligned with BCA Green Mark, AI-driven surrogate models for rapid design iteration, and GAN-based thermal comfort mapping. Outputs include validated NV design guidelines and a commercialisable AI-driven software platform targeting a 20–40% reduction in cooling energy demand.',
+        meta: [
+          { label: 'Role', value: 'Lead PI' },
+          { label: 'Co-PIs', value: 'Peter Ortner (ASD), Samuel Chng (LKYCIC), Yong Ping Quen (BSD), David Tan & Zhi Yan Tian (GreenZero Solutions), Kim Dong Kyun (Korea)' },
+          { label: 'Industry Partners', value: 'BSD Pte Ltd, GreenZero Solutions, Frasers Property' },
+          { label: 'Target', value: '±10% CFD accuracy · ≥95% sensor uptime · 20–40% cooling energy reduction' },
+          { label: 'Status', value: 'Ongoing' }
+        ],
+        tags: ['Natural Ventilation', 'CFD', 'IoT Sensors', 'AI Surrogates', 'Green Mark', 'BCA Guidelines', 'Tropical Buildings'],
+        link: 'https://www.sutd.edu.sg/profile/zheng-kai/',
+        linkLabel: 'View SUTD Profile'
+      },
+        funder: 'Ministry of National Development × SUTD',
+        title: 'Built Environment AI Centre of Excellence',
+        amount: 'SGD 30,000,000 · Launched February 2026',
+        role: 'Co-PI — Singapore Building Genome Project (Working Title)',
+        desc: 'Singapore\'s first Built Environment AI Centre of Excellence, jointly launched by MND and SUTD under the Research, Innovation and Enterprise 2030 plan. The Centre develops AI-driven solutions to tackle climate change impacts, manpower shortages, and sustainability challenges across construction and facilities management. Dr Zheng Kai leads a work package to create the Singapore Building Genome Project — a comprehensive, AI-ready dataset integrating building geometry, energy performance, material properties, and microclimate data to enable city-scale simulation and benchmarking.',
+        meta: [
+          { label: 'Partners', value: 'MND, SUTD' },
+          { label: 'Framework', value: 'RIE2030' },
+          { label: 'Status', value: 'Ongoing · 2026–' }
+        ],
+        tags: ['AI', 'Building Data', 'Urban Scale', 'Energy Benchmarking', 'Sustainability'],
+        link: 'https://www.businesstimes.com.sg/property/mnd-sutd-launch-s30-million-built-environment-ai-centre-excellence',
+        linkLabel: 'Read Announcement'
+      },
+      ssrc: {
+        funder: 'Ministry of Education · Social Science Research Council',
+        title: 'Leveraging Shared Experience of Urban Heat: Towards a Climate Resilient Citizenry in Singapore',
+        amount: 'SGD 2,419,550 · Commenced October 2023',
+        role: 'Co-PI',
+        desc: 'A transdisciplinary research project investigating why Singaporeans discount the impact of climate change, and how everyday shared experiences of urban heat can be used to activate climate action. The study employs multiple methodological approaches — population surveys, field experiments, and citizens\' dialogues — to understand the disconnect between climate awareness and behavioural change. Findings will inform policy and community-level interventions for a more climate-resilient citizenry.',
+        meta: [
+          { label: 'PI', value: 'Dr Harvey Neo (LKYCIC, SUTD)' },
+          { label: 'Partners', value: 'NUS, SMU, Singapore-ETH Centre, MSE' },
+          { label: 'Status', value: 'Ongoing · 2023–' }
+        ],
+        tags: ['Urban Heat', 'Climate Action', 'Behavioural Science', 'Transdisciplinary', 'Policy'],
+        link: 'https://lkycic.sutd.edu.sg/research/leveraging-shared-experience-of-urban-heat-and-bridging-spatial-temporal-dissonance-towards-a-climate-resilient-citizenry-in-singapore/',
+        linkLabel: 'View Project'
+      },
+      tote: {
+        funder: 'Tote Board',
+        title: 'Staying Cool: Strengthening the Heat Resilience of Vulnerable Communities',
+        amount: 'SGD 1,000,000 · 24 months',
+        role: 'Co-PI',
+        desc: 'Building on the Climate Resilient Citizenry project, this research focuses specifically on low-income households facing rising heat stress from climate change and Urban Heat Island effects. The study seeks to understand how vulnerable communities can adapt to increasing heat stress in a sustainable way — environmentally, financially, and behaviourally. Findings will inform community-led solutions and pilot interventions tailored to this population.',
+        meta: [
+          { label: 'PI', value: 'Dr Harvey Neo (LKYCIC, SUTD)' },
+          { label: 'Partners', value: 'NUS Heat Resilience & Performance Centre' },
+          { label: 'Status', value: 'Ongoing' }
+        ],
+        tags: ['Heat Resilience', 'Low-Income Communities', 'Thermal Comfort', 'Community-Led', 'Policy'],
+        link: 'https://lkycic.sutd.edu.sg/research/staying-cool-strengthening-the-heat-resilience-of-vulnerable-communities/',
+        linkLabel: 'View Project'
+      },
+      experion: {
+        funder: 'Experion Holdings Pte Ltd',
+        title: 'Advanced Facades and Design Intelligence for Healthy Sustainable Residential Development',
+        amount: 'SGD 262,000 · 12 months',
+        role: 'Co-PI',
+        desc: 'An industry-partnered research project with Experion Holdings to develop advanced facade systems and AI-driven design intelligence for healthier and more sustainable residential buildings. The research integrates environmental simulation, material science, and occupant-centred design to produce facades that optimise thermal performance, daylighting, and indoor environmental quality for tropical climates.',
+        meta: [
+          { label: 'Industry Partner', value: 'Experion Holdings Pte Ltd' },
+          { label: 'Focus', value: 'Sustainable residential facades, tropics' },
+          { label: 'Status', value: 'Ongoing' }
+        ],
+        tags: ['Facades', 'Sustainable Design', 'Residential', 'Thermal Performance', 'Industry Partnership'],
+        link: 'https://www.constructionweekonline.in/business/experion-sutd-sustainab',
+        linkLabel: 'Read Coverage'
+      },
+      sunventus: {
+        funder: 'SUTD Internal Grant',
+        title: 'Sunventus — Building Integrated Hybrid Solar-Wind Energy System',
+        amount: 'SGD 201,500 · 24 months',
+        role: 'Principal Investigator',
+        desc: 'Sunventus is a novel building-integrated renewable energy system that combines solar concentrators with passive stack ventilation — using solar-driven temperature differentials to amplify airflow through buildings. The system targets medium-to-high grade heat delivery (100–400°C at over 70% efficiency) in a compact, architecturally compatible form factor designed for dense tropical cities. The research investigates how hybrid solar-wind integration can simultaneously enhance natural ventilation and generate renewable energy.',
+        meta: [
+          { label: 'Role', value: 'Principal Investigator' },
+          { label: 'Technology', value: 'Solar thermal + stack ventilation' },
+          { label: 'Status', value: 'Ongoing · Showcased at GreenTech Festival 2023' }
+        ],
+        tags: ['Solar Thermal', 'Passive Ventilation', 'Renewable Energy', 'Building Integration', 'Tropics'],
+        link: 'https://www.sunventus.com/',
+        linkLabel: 'Visit Sunventus'
+      },
+      evap: {
+        funder: 'SUTD Internal Grant',
+        title: 'Evaporative Cooling for Low-Energy Thermal Comfort in the Built Environment',
+        amount: 'SGD 88,914 · 36 months',
+        role: 'Principal Investigator',
+        desc: 'This project investigates evaporative cooling strategies — including direct, indirect, and desiccant-assisted systems — as low-energy alternatives to conventional air conditioning in tropical buildings. Research involves CFD simulation, laboratory testing, and field validation across building typologies including classrooms, dormitories, and public housing. The goal is to develop design guidelines and system configurations that deliver acceptable thermal comfort without grid-intensive cooling.',
+        meta: [
+          { label: 'Role', value: 'Principal Investigator' },
+          { label: 'Building Types', value: 'Schools, dormitories, HDB housing' },
+          { label: 'Status', value: 'Ongoing' }
+        ],
+        tags: ['Evaporative Cooling', 'Low-Energy', 'Thermal Comfort', 'CFD', 'Tropical Buildings'],
+        link: 'https://scholar.google.com/citations?user=nKz7dMUAAAAJ&hl=en',
+        linkLabel: 'View Publications'
+      }
+    };
+
+    function openGrant(id) {
+      var g = grants[id];
+      if (!g) return;
+      document.getElementById('modalContent').innerHTML =
+        '<div class="modal-funder">' + g.funder + '</div>' +
+        '<div class="modal-title">' + g.title + '</div>' +
+        '<div class="modal-amount">' + g.amount + '</div>' +
+        '<div class="modal-role">' + g.role + '</div>' +
+        '<p class="modal-desc">' + g.desc + '</p>' +
+        '<div class="modal-meta">' + g.meta.map(function(m){ return '<div class="modal-meta-row"><strong>' + m.label + ':</strong> ' + m.value + '</div>'; }).join('') + '</div>' +
+        '<div class="modal-tags">' + g.tags.map(function(t){ return '<span class="modal-tag">' + t + '</span>'; }).join('') + '</div>' +
+        '<a href="' + g.link + '" class="modal-link" target="_blank">' + g.linkLabel + ' &rarr;</a>';
+      document.getElementById('grantModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeGrant(e) {
+      if (e && e.target !== document.getElementById('grantModal')) return;
+      document.getElementById('grantModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeGrant(); });
+  </script>
+</body>
+</html>
